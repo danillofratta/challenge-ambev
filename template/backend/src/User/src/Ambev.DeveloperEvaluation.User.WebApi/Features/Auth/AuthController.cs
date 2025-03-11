@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Ambev.DeveloperEvaluation.WebApi.Features.Auth.AuthenticateUserFeature;
 using Ambev.DeveloperEvaluation.Application.Auth.AuthenticateUser;
-using Ambev.DeveloperEvaluation.Base.WebApi;
+using Ambev.Base.WebApi;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Auth;
 

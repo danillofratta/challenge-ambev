@@ -1,5 +1,5 @@
 using Ambev.DeveloperEvaluation.Application;
-using Ambev.DeveloperEvaluation.Base.WebApi.Middleware;
+using Ambev.Base.WebApi.Middleware;
 using Ambev.DeveloperEvaluation.Common.HealthChecks;
 using Ambev.DeveloperEvaluation.Common.Logging;
 using Ambev.DeveloperEvaluation.Common.Security;

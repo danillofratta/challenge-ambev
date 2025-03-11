@@ -1,4 +1,4 @@
-using Ambev.DeveloperEvaluation.Base.Domain.Specification;
+using Ambev.Base.Domain.Specification;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Enums;

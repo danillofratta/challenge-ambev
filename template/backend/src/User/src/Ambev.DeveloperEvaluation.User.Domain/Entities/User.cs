@@ -2,7 +2,7 @@ using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
-using BAmbev.DeveloperEvaluation.Base.Domain.Entities;
+using Ambev.Base.Domain.Entities;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 

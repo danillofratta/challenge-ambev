@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Base\src\Ambev.DeveloperEvaluation.Base.WebApi\Ambev.DeveloperEvaluation.Base.WebApi.csproj" />
+    <ProjectReference Include="..\..\..\Base\src\Ambev.Base.WebApi\Ambev.Base.WebApi.csproj" />
     <ProjectReference Include="..\Ambev.DeveloperEvaluation.IoC\Ambev.DeveloperEvaluation.IoC.csproj" />
   </ItemGroup>
 
