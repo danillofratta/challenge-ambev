@@ -1,7 +1,4 @@
-﻿
-
-
-using Ambev.Base.Infrastructure.Query.Orm.Repository;
+﻿using Ambev.Base.Infrastructure.Query.Orm.Repository;
 using Ambev.Sale.Command.Infrastructure.Orm;
 using Ambev.Sale.Query.Consumer.Domain.Repository;
 using System;
