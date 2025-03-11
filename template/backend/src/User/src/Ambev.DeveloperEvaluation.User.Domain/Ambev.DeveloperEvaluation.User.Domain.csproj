@@ -26,11 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <ProjectReference Include="..\..\..\Base\src\Ambev.Base.Domain\Ambev.Base.Domain.csproj" />
-=======
-    <ProjectReference Include="..\..\..\Base\src\Ambev.DeveloperEvaluation.Base.Domain\Ambev.DeveloperEvaluation.Base.Domain.csproj" />
->>>>>>> b0
     <ProjectReference Include="..\Ambev.DeveloperEvaluation.Common\Ambev.DeveloperEvaluation.Common.csproj" />
   </ItemGroup>
 

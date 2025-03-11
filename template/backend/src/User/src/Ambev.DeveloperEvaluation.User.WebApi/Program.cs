@@ -1,9 +1,5 @@
 using Ambev.DeveloperEvaluation.Application;
-<<<<<<< HEAD
 using Ambev.Base.WebApi.Middleware;
-=======
-using Ambev.DeveloperEvaluation.Base.WebApi.Middleware;
->>>>>>> b0
 using Ambev.DeveloperEvaluation.Common.HealthChecks;
 using Ambev.DeveloperEvaluation.Common.Logging;
 using Ambev.DeveloperEvaluation.Common.Security;

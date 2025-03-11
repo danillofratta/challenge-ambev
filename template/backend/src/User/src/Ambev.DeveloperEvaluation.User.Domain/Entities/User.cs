@@ -1,12 +1,8 @@
+using Ambev.Base.Domain.Entities;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
-<<<<<<< HEAD
-using Ambev.Base.Domain.Entities;
-=======
-using BAmbev.DeveloperEvaluation.Base.Domain.Entities;
->>>>>>> b0
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 

@@ -7,11 +7,7 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Users.DeleteUser;
 using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 using Ambev.DeveloperEvaluation.Application.Users.GetUser;
 using Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
-<<<<<<< HEAD
 using Ambev.Base.WebApi;
-=======
-using Ambev.DeveloperEvaluation.Base.WebApi;
->>>>>>> b0
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users;
 
