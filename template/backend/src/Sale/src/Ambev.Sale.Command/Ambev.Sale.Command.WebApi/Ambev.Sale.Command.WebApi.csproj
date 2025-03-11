@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\..\..\b1\challenge-ambev\template\backend\src\Sale\src\Ambev.Sale.Command\Ambev.Sale.Command.Application\Ambev.Sale.Command.Application.csproj" />
     <ProjectReference Include="..\..\..\..\Base\src\Ambev.Base.WebApi\Ambev.Base.WebApi.csproj" />
     <ProjectReference Include="..\..\Ambev.Sale.Contracts\Ambev.Sale.Contracts.csproj" />
-    <ProjectReference Include="..\Ambev.Sale.Command.Application\Ambev.Sale.Command.Application.csproj" />
     <ProjectReference Include="..\Ambev.Sale.Command.Domain\Ambev.Sale.Command.Domain.csproj" />
     <ProjectReference Include="..\Ambev.Sale.Command.Infrastructure.Orm\Ambev.Sale.Command.Infrastructure.Orm.csproj" />
   </ItemGroup>
