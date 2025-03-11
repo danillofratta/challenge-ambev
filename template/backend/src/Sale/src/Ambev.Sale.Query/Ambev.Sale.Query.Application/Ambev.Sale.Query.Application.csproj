@@ -14,12 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Base\src\Ambev.Base.WebApi\Ambev.Base.WebApi.csproj" />
     <ProjectReference Include="..\Ambev.Sale.Query.Domain\Ambev.Sale.Query.Domain.csproj" />
     <ProjectReference Include="..\Ambev.Sale.Query.Infrastructure.Orm\Ambev.Sale.Query.Infrastructure.Orm.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="SaleItem\GetById\" />
   </ItemGroup>
 
 </Project>

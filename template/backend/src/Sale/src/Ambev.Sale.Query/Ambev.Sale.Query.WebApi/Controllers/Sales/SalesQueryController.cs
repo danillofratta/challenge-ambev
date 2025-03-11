@@ -1,5 +1,6 @@
 ﻿using Ambev.Base.WebApi;
 using Ambev.Sale.Query.Application.Sale.GetById;
+using Ambev.Sale.Query.Application.Sale.GetListPaginated;
 using Ambev.Sale.Query.Domain.Repository;
 using AutoMapper;
 using MediatR;
@@ -24,6 +25,15 @@ public class SalesQueryController : BaseController
         _mediator = mediator;
         _mapper = mapper;
         _repository = repository;
+    }
+
+    [HttpGet("paginated")]
+    public async Task<IActionResult> GetPaginatedProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+    {
+        var query = new GetSaleListPaginatedQuery(pageNumber, pageSize);
+        var paginatedResult = await _mediator.Send(query);
+
+        return OkPaginated(paginatedResult);
     }
 
     /// <summary>
