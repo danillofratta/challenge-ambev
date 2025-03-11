@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\Ambev.DeveloperEvaluation.Common\Ambev.DeveloperEvaluation.Common.csproj" />
+		<ProjectReference Include="..\Ambev.DeveloperEvaluation.User.Application\Ambev.DeveloperEvaluation.User.Application.csproj" />
+		<ProjectReference Include="..\Ambev.DeveloperEvaluation.User.Domain\Ambev.DeveloperEvaluation.User.Domain.csproj" />
+		<ProjectReference Include="..\Ambev.DeveloperEvaluation.User.ORM\Ambev.DeveloperEvaluation.User.ORM.csproj" />
+	</ItemGroup>
+
+</Project>
