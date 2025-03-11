@@ -5,7 +5,7 @@ namespace Ambev.Sale.Query.Application.SaleItem.GetById;
 
 public class GetSaleItemByIdQueryResult
 {
-    public Guid id { get; set; }
+    public Guid Id { get; set; }
     public Guid SaleId { get; set; }
     public string ProductId { get; set; } = string.Empty;
     public string ProductName { get; set; } = string.Empty;

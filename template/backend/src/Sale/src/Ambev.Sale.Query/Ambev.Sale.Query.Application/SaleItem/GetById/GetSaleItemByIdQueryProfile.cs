@@ -6,7 +6,7 @@ namespace Ambev.Sale.Query.Application.SaleItem.GetById
     {
         public GetSaleItemByIdQueryProfile()
         {
-            CreateMap<Domain.Entities.Sale, GetSaleItemByIdQueryResult>();
+            CreateMap<Domain.Entities.SaleItem, GetSaleItemByIdQueryResult>();
         }
     }
 }
