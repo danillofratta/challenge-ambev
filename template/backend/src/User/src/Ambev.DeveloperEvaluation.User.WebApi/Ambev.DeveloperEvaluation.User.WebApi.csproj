@@ -32,7 +32,11 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <ProjectReference Include="..\..\..\Base\src\Ambev.Base.WebApi\Ambev.Base.WebApi.csproj" />
+=======
+    <ProjectReference Include="..\..\..\Base\src\Ambev.DeveloperEvaluation.Base.WebApi\Ambev.DeveloperEvaluation.Base.WebApi.csproj" />
+>>>>>>> b0
     <ProjectReference Include="..\Ambev.DeveloperEvaluation.IoC\Ambev.DeveloperEvaluation.IoC.csproj" />
   </ItemGroup>
 
