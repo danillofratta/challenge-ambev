@@ -4,6 +4,7 @@ using AutoMapper;
 using Ambev.Sale.Core.Domain.Repository;
 using Ambev.Base.Infrastructure.Messaging;
 using Ambev.Sale.Command.Application.Sale.Create;
+using Ambev.Sale.Contracts.Events;
 
 
 namespace Ambev.Sale.Command.Application.Sale.Cancel
@@ -45,15 +46,10 @@ namespace Ambev.Sale.Command.Application.Sale.Cancel
             await Task.FromResult("Sale Cancelled");
 
             //using rebus
-            //await _bus.PublishAsync(new CreateSaleEvent
-            //{
-            //    Id = created.Id,
-            //    Number = created.Number,
-            //    CustomerId = created.CustomerId,
-            //    BranchId = created.BranchId,
-            //    TotalAmount = created.TotalAmount,
-            //    CreatedAt = created.CreatedAt
-            //});
+            await _bus.PublishAsync(new SaleCanceledEvent
+            {
+                Id = update.Id               
+            });
 
             return _mapper.Map<CancelSaleResult>(update); ;
         }

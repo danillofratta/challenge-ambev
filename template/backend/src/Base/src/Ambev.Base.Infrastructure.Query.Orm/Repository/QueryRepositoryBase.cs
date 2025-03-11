@@ -18,8 +18,8 @@ public abstract class QueryRepositoryBase<TEntity, TKey> : IQueryRepositoryBase<
         return await _dbContext.Set<TEntity>().FindAsync(id);
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
-    {
-        return await _dbContext.Set<TEntity>().ToListAsync();
+    public virtual async Task<IQueryable<TEntity>> GetAllAsync()
+    {        
+        return await Task.FromResult(_dbContext.Set<TEntity>().AsNoTracking().AsQueryable());
     }
 }

@@ -30,10 +30,21 @@ public class SalesQueryController : BaseController
     [HttpGet("paginated")]
     public async Task<IActionResult> GetPaginatedProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
-        var query = new GetSaleListPaginatedQuery(pageNumber, pageSize);
-        var paginatedResult = await _mediator.Send(query);
+        try
+        {
+            var query = new GetSaleListPaginatedQuery(pageNumber, pageSize);
+            var paginatedResult = await _mediator.Send(query);
 
-        return OkPaginated(paginatedResult);
+            return OkPaginated(paginatedResult);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(new ApiResponseWithData<GetSaleListPaginatedQuery>
+            {
+                Success = false,
+                Message = ex.Message
+            });
+        }
     }
 
     /// <summary>

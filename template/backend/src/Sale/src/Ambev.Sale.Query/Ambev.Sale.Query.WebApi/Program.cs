@@ -24,6 +24,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(ApplicationLayer
 builder.Services.AddDbContext<SaleQueryDbContext>();
 
 builder.Services.AddScoped<ISaleQueryRepository, SaleQueryRepository>();
+builder.Services.AddScoped<ISaleItemQueryRepository, SaleItemQueryRepository>();
 
 var app = builder.Build();
 

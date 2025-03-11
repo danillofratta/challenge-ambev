@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Base\src\Ambev.Base.Infrastructure.Command.Orm\Ambev.Base.Infrastructure.Command.Orm.csproj" />
+    <ProjectReference Include="..\..\..\..\Base\src\Ambev.Base.Infrastructure.Query.Orm\Ambev.Base.Infrastructure.Query.Orm.csproj" />
+    <ProjectReference Include="..\..\Ambev.Sale.Query\Ambev.Sale.Query.Domain\Ambev.Sale.Query.Domain.csproj" />
+    <ProjectReference Include="..\..\Ambev.Sale.Query\Ambev.Sale.Query.Infrastructure.Orm\Ambev.Sale.Query.Infrastructure.Orm.csproj" />
+    <ProjectReference Include="..\Ambev.Sale.Query.Consumer.Domain\Ambev.Sale.Query.Consumer.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

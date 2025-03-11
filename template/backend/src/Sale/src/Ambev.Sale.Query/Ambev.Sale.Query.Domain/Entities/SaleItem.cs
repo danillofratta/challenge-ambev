@@ -12,7 +12,7 @@ public class SaleItem : BaseEntity
     /// <summary>
     /// External Identities
     /// </summary>
-    public string ProductId { get; set; }
+    public string ProductId { get; set; } = string.Empty;
 
     /// <summary>
     /// External Identities

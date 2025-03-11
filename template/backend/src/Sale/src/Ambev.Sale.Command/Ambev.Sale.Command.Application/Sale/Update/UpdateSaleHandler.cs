@@ -3,6 +3,9 @@ using FluentValidation;
 using AutoMapper;
 using Ambev.Sale.Core.Domain.Repository;
 using Ambev.Base.Infrastructure.Messaging;
+using Ambev.Sale.Contracts.Events;
+using Ambev.Sale.Contracts.Dto;
+using Ambev.Sale.Query.Domain.Enum;
 
 namespace Ambev.Sale.Command.Application.Sale.Update
 {
@@ -31,9 +34,13 @@ namespace Ambev.Sale.Command.Application.Sale.Update
             if (validationResult != null && !validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var record = _mapper.Map<Domain.Entities.Sale>(command);
+            var existingSale = await _repositoryquery.GetByIdAsync(command.Id);
+            if (existingSale == null)
+                throw new Exception($"Sale with ID {command.Id} not found.");
 
-            var update = await _repositorycommnad.UpdateAsync(record);
+            _mapper.Map(command, existingSale);            
+
+            var update = await _repositorycommnad.UpdateAsync(existingSale);
             var result = _mapper.Map<UpdateSaleResult>(update);
 
             //publich event 
@@ -42,19 +49,22 @@ namespace Ambev.Sale.Command.Application.Sale.Update
                 Id = result.Id,
                 Number = result.Number
             });
-            await Task.FromResult("Sale Modified");
-
+            
             //todo
             //using rebus
-            //await _bus.PublishAsync(new CreateSaleEvent
-            //{
-            //    Id = created.Id,
-            //    Number = created.Number,
-            //    CustomerId = created.CustomerId,
-            //    BranchId = created.BranchId,
-            //    TotalAmount = created.TotalAmount,
-            //    CreatedAt = created.CreatedAt
-            //});
+            await _bus.PublishAsync(new SaleUpdateEvent
+            {
+                Id = update.Id,
+                Number = update.Number,
+                CustomerId = update.CustomerId,
+                CustomerName = update.CustomerName ?? string.Empty,
+                BranchId = update.BranchId,
+                BranchName = update.BranchName ?? string.Empty,
+                TotalAmount = update.TotalAmount,
+                CreatedAt = update.CreatedAt,
+                Status = (SaleStatusDto)update.Status,
+                SaleItens = _mapper.Map<List<SaleItemDto>>(update.SaleItens)
+            });
 
             return result;
         }

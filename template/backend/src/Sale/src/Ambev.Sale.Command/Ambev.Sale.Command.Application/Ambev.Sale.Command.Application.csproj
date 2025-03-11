@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Base\src\Ambev.Base.Infrastructure.Messaging.Rebus\Ambev.Base.Infrastructure.Messaging.Rebus.csproj" />
+    <ProjectReference Include="..\..\Ambev.Sale.Contracts\Ambev.Sale.Contracts.csproj" />
     <ProjectReference Include="..\Ambev.Sale.Command.Domain\Ambev.Sale.Command.Domain.csproj" />
   </ItemGroup>
 

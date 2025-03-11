@@ -4,11 +4,13 @@
 namespace Ambev.Sale.Query.Application.Dto;
 public record SaleItemDto
 (
+    Guid Id,
+    Guid SaleId,
     string ProductId,
     string ProductName,
     int Quantity,
     decimal UnitPrice,
     decimal Discount,
     decimal TotalPrice,
-    SaleStatus Status = SaleStatus.NotCancelled
+    SaleItemStatus Status = SaleItemStatus.NotCancelled
 );

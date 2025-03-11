@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ambev.Sale.Query.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,6 @@ namespace Ambev.Sale.Contracts.Dto
         public decimal UnitPrice { get; set; }
         public decimal Discount { get; set; }
         public decimal TotalPrice { get; set; }
-        public string Status { get; set; } 
+        public SaleItemStatusDto Status { get; set; } 
     }
 }

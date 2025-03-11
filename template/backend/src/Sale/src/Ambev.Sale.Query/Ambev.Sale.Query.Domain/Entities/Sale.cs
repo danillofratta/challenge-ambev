@@ -13,7 +13,7 @@ public class Sale : BaseEntity
     /// <summary>
     /// External Identities
     /// </summary>
-    public string CustomerId { get; set; }
+    public string CustomerId { get; set; } = string.Empty;
 
     /// <summary>
     /// External Identities
@@ -23,7 +23,7 @@ public class Sale : BaseEntity
     /// <summary>
     /// External Identities
     /// </summary>
-    public string BranchId { get; set; }
+    public string BranchId { get; set; } = string.Empty;
 
     /// <summary>
     /// External Identities

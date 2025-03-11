@@ -4,6 +4,10 @@ using AutoMapper;
 using Ambev.Sale.Core.Domain.Service;
 using Ambev.Sale.Core.Domain.Repository;
 using Ambev.Base.Infrastructure.Messaging;
+using Ambev.Sale.Contracts.Events;
+using Ambev.Sale.Contracts.Dto;
+using Ambev.Sale.Command.Domain.Enum;
+using Ambev.Sale.Query.Domain.Enum;
 
 namespace Ambev.Sale.Command.Application.Sale.Create
 {
@@ -55,14 +59,18 @@ namespace Ambev.Sale.Command.Application.Sale.Create
                 await Task.FromResult("Sale Created");
 
                 //using rebus
-                await _bus.PublishAsync(new CreateSaleEvent
+                await _bus.PublishAsync(new SaleCreatedEvent
                 {
                     Id = created.Id,
                     Number = created.Number,
                     CustomerId = created.CustomerId,
+                    CustomerName = created.CustomerName ?? string.Empty, 
                     BranchId = created.BranchId,
+                    BranchName = created.BranchName ?? string.Empty, 
                     TotalAmount = created.TotalAmount,
-                    CreatedAt = created.CreatedAt
+                    CreatedAt = created.CreatedAt,
+                    Status = (SaleStatusDto)created.Status, 
+                    SaleItens = _mapper.Map<List<SaleItemDto>>(created.SaleItens)
                 });
 
                 return result;

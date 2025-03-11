@@ -13,6 +13,6 @@ public class GetSaleListPaginatedQueryResult
     public string BranchName { get; set; } = string.Empty;
     public decimal TotalAmount { get; set; }
     public SaleStatus Status { get; set; }
-    public List<SaleItemDto> SaleItens { get; set; }
+    public List<SaleItemDto> SaleItens { get; set; } = new();
 }
 
