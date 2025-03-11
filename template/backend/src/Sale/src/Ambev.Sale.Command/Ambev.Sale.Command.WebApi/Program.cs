@@ -2,6 +2,10 @@ using Ambev.Sale.Command.Application;
 using Ambev.Sale.Command.Infrastructure.Orm;
 using Ambev.Sale.Command.Infrastructure.Orm.Repository;
 using Ambev.Sale.Core.Domain.Repository;
+using Rebus.Config;
+using Rebus;
+using Rebus.Routing.TypeBased;
+using Ambev.Sale.Contracts.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +44,14 @@ builder.Services.AddScoped<ISaleItemQueryRepository, SaleItemQueryRepository>();
 //});
 
 //builder.Services.AddMassTransitHostedService();
+
+//todo move to other project
+builder.Services.AddRebus(configure => configure
+                .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleSagaEndpoint"))
+                .Routing(r => r.TypeBased().Map<SaleCreatedEvent>("queue-sale-created"))
+                .Routing(r => r.TypeBased().Map<SaleUpdateEvent>("queue-sale-udpated"))
+                .Routing(r => r.TypeBased().Map<SaleDeletedEvent>("queue-sale-deleted"))
+                .Routing(r => r.TypeBased().Map<SaleCanceledEvent>("queue-sale-canceled")));
 
 
 var app = builder.Build();

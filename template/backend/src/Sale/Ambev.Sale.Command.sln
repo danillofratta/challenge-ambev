@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambev.Base.Infrastructure.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambev.Base.WebApi", "..\Base\src\Ambev.Base.WebApi\Ambev.Base.WebApi.csproj", "{1E1FD046-B0AB-4134-A667-C868C87E0AC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambev.Sale.Contracts", "src\Ambev.Sale.Contracts\Ambev.Sale.Contracts.csproj", "{DA35585B-AD65-4D3E-BB52-067479F46599}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{1E1FD046-B0AB-4134-A667-C868C87E0AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E1FD046-B0AB-4134-A667-C868C87E0AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E1FD046-B0AB-4134-A667-C868C87E0AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA35585B-AD65-4D3E-BB52-067479F46599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA35585B-AD65-4D3E-BB52-067479F46599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA35585B-AD65-4D3E-BB52-067479F46599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA35585B-AD65-4D3E-BB52-067479F46599}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

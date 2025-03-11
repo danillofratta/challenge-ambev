@@ -19,7 +19,7 @@ public class SaleQueryDbContext : DbContext
             //run docker with VS
             //todo craete appsettings
             //var conn = "Host=localhost;Port=5432;Username=admin;Password=root;Database=apisalestock;";
-            var conn = "Host=localhost;Port=5432;Username=admin;Password=root;Database=SaleWriteDb;";
+            var conn = "Host=localhost;Port=5432;Username=admin;Password=root;Database=SaleReadDb;";
             optionsBuilder.UseNpgsql(conn);
 #else
         //run docker 
