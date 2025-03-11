@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\Base.Infrastructure.Query.Orm\Base.Infrastructure.Query.Orm.csproj" />
-    <ProjectReference Include="..\Product.Query.Domain\Product.Query.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\Base\src\Ambev.Base.Infrastructure.Query.Orm\Ambev.Base.Infrastructure.Query.Orm.csproj" />
+    <ProjectReference Include="..\Ambev.Sale.Query.Domain\Ambev.Sale.Query.Domain.csproj" />
   </ItemGroup>
 
 </Project>

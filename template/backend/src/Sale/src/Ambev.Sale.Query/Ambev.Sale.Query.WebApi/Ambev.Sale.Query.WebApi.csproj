@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\Base.WebApi\Base.WebApi.csproj" />
-    <ProjectReference Include="..\Product.Query.Application\Product.Query.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\Base\src\Ambev.Base.WebApi\Ambev.Base.WebApi.csproj" />
+    <ProjectReference Include="..\Ambev.Sale.Query.Application\Ambev.Sale.Query.Application.csproj" />
   </ItemGroup>
 
 </Project>

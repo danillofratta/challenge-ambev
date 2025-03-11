@@ -14,8 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Product.Query.Domain\Product.Query.Domain.csproj" />
-    <ProjectReference Include="..\Product.Query.Infrastructure.Orm\Product.Query.Infrastructure.Orm.csproj" />
+    <ProjectReference Include="..\Ambev.Sale.Query.Domain\Ambev.Sale.Query.Domain.csproj" />
+    <ProjectReference Include="..\Ambev.Sale.Query.Infrastructure.Orm\Ambev.Sale.Query.Infrastructure.Orm.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SaleItem\GetById\" />
   </ItemGroup>
 
 </Project>

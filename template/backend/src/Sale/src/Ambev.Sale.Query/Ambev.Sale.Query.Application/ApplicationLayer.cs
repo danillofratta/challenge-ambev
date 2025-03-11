@@ -1,4 +1,4 @@
-﻿namespace Product.Query.Application;
+﻿namespace Ambev.Sale.Query.Application;
 
 /// <summary>
 /// Represents the application layer of the system.

@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Product.Query.Infrastructure.Orm.Mapping;
+﻿using Ambev.Sale.Query.Infrastructure.Orm.Mapping;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Product.Query.Infrastructure.Orm;
+namespace Ambev.Sale.Command.Infrastructure.Orm;
 
-public class ProductQueryDbContext : DbContext
+public class SaleQueryDbContext : DbContext
 {
-    public DbSet<ProductQueryDomainEntities.Product> Products { get; set; }
+    public DbSet<Ambev.Sale.Query.Domain.Entities.Sale> Sales { get; set; }
+
+    public DbSet<Ambev.Sale.Query.Domain.Entities.SaleItem> SaleItens { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -17,7 +19,7 @@ public class ProductQueryDbContext : DbContext
             //run docker with VS
             //todo craete appsettings
             //var conn = "Host=localhost;Port=5432;Username=admin;Password=root;Database=apisalestock;";
-            var conn = "Host=localhost;Port=5432;Username=admin;Password=root;Database=product_read;";
+            var conn = "Host=localhost;Port=5432;Username=admin;Password=root;Database=SaleWriteDb;";
             optionsBuilder.UseNpgsql(conn);
 #else
         //run docker 
@@ -35,6 +37,7 @@ public class ProductQueryDbContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfiguration(new ProductConfiguration());
+        modelBuilder.ApplyConfiguration(new SaleConfiguration());
+        modelBuilder.ApplyConfiguration(new SaleItemConfiguration());
     }
 }

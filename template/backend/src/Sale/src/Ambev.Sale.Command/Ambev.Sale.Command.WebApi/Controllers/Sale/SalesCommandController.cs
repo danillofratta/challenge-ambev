@@ -15,13 +15,13 @@ namespace Ambev.Sale.Command.WebApi;
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
-public class SalesController : BaseController
+public class SalesCommandController : BaseController
 {
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
     private readonly ISaleQueryRepository _saleQueryRepository;
 
-    public SalesController(IMediator mediator, IMapper mapper, ISaleQueryRepository saleQueryRepository)
+    public SalesCommandController(IMediator mediator, IMapper mapper, ISaleQueryRepository saleQueryRepository)
     {
         _saleQueryRepository = saleQueryRepository; 
         _mediator = mediator;

@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Product.Query.Application;
-using Product.Query.Domain.Repository;
-using Product.Query.Infrastructure.Orm;
-using Product.Query.Infrastructure.Orm.Repository;
+using Ambev.Sale.Command.Infrastructure.Orm;
+using Ambev.Sale.Query.Application;
+using Ambev.Sale.Query.Domain.Repository;
+using Ambev.Sale.Query.Infrastructure.Orm.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,20 +21,14 @@ builder.Services.AddMediatR(cfg =>
 });
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(ApplicationLayer).Assembly);
-builder.Services.AddDbContext<ProductQueryDbContext>();
+builder.Services.AddDbContext<SaleQueryDbContext>();
 
-builder.Services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
+builder.Services.AddScoped<ISaleQueryRepository, SaleQueryRepository>();
 
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
 app.UseSwagger();
 app.UseSwaggerUI();
-//}
 
 app.UseHttpsRedirection();
 
