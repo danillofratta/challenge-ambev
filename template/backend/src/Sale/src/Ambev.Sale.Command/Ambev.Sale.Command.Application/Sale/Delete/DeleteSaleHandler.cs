@@ -4,6 +4,7 @@ using AutoMapper;
 using Ambev.Sale.Core.Domain.Repository;
 using Ambev.Base.Infrastructure.Messaging;
 using Ambev.Sale.Contracts.Events;
+using Ambev.Sale.Command.Domain.Specification;
 
 namespace Ambev.Sale.Command.Application.Sale.Delete
 {
@@ -30,6 +31,11 @@ namespace Ambev.Sale.Command.Application.Sale.Delete
                 throw new ValidationException(validationResult.Errors);
 
             var record = await _repositoryquery.GetByIdAsync(command.Id);
+
+            var cancelsalespec = new SaleCancelSpecification();
+            if (!cancelsalespec.IsSatisfiedBy(record))
+                throw new Exception($"Sale with ID {command.Id} already cancelled.");
+
             record.Status = Domain.Enum.SaleStatus.Cancelled;
 
             var update = await _repositorycommand.DeleteAsync(record);

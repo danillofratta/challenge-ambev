@@ -4,6 +4,11 @@ using AutoMapper;
 using Ambev.Sale.Core.Domain.Repository;
 using Ambev.Base.Infrastructure.Messaging;
 using Ambev.Sale.Command.Application.Sale.Create;
+using Ambev.Sale.Contracts.Events.SaleItem;
+using Ambev.Sale.Contracts.Events;
+using Ambev.Sale.Query.Domain.Enum;
+using Ambev.Sale.Contracts.Dto;
+using Ambev.Sale.Command.Domain.Specification;
 
 namespace Ambev.Sale.Command.Application.SaleItem.Cancel
 {
@@ -37,7 +42,12 @@ namespace Ambev.Sale.Command.Application.SaleItem.Cancel
             if (validationResult != null && !validationResult.IsValid)                
                 throw new ValidationException(validationResult.Errors);
             
-            var record = await _repositorysaleitemquery.GetByIdAsync(command.id);            
+            var record = await _repositorysaleitemquery.GetByIdAsync(command.id);
+            
+            var cancelsalespec = new SaleItemCancelSpecification();
+            if (!cancelsalespec.IsSatisfiedBy(record))
+                throw new Exception($"Sale Item with ID {record.Id} already cancelled.");
+
             record.Status = Ambev.Sale.Command.Domain.Enum.SaleItemStatus.Cancelled;
 
             var update = await _repositorysaleitemcommand.UpdateAsync(record);
@@ -48,24 +58,27 @@ namespace Ambev.Sale.Command.Application.SaleItem.Cancel
             //save sale with new total
             await _repositorysaleCommand.UpdateAsync(sale);
 
-            //publich event 
-            await _mediator.Publish(new CancelSaleItemResult
+            //update sale item
+            await _bus.PublishAsync(new SaleItemCanceledEvent
             {
-                id = update.Id
+                Id = update.Id
             });
 
-            await Task.FromResult("Sale Item Canceled");
-
-            //using rebus
-            //await _bus.PublishAsync(new CreateSaleEvent
-            //{
-            //    Id = created.Id,
-            //    Number = created.Number,
-            //    CustomerId = created.CustomerId,
-            //    BranchId = created.BranchId,
-            //    TotalAmount = created.TotalAmount,
-            //    CreatedAt = created.CreatedAt
-            //});
+            //update sale becausa recalculate. 
+            //TODO: update only the field that was modified
+            await _bus.PublishAsync(new SaleUpdatedEvent
+            {
+                Id = sale.Id,
+                Number = sale.Number,
+                CustomerId = sale.CustomerId,
+                CustomerName = sale.CustomerName ?? string.Empty,
+                BranchId = sale.BranchId,
+                BranchName = sale.BranchName ?? string.Empty,
+                TotalAmount = sale.TotalAmount,
+                CreatedAt = sale.CreatedAt,
+                Status = (SaleStatusDto)sale.Status,
+                SaleItens = _mapper.Map<List<SaleItemDto>>(sale.SaleItens)
+            });
 
             return _mapper.Map<CancelSaleItemResult>(update); ;            
         }

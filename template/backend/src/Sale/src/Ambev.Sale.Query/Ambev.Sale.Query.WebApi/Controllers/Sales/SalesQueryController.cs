@@ -1,5 +1,6 @@
 ﻿using Ambev.Base.WebApi;
 using Ambev.Sale.Query.Application.Sale.GetById;
+using Ambev.Sale.Query.Application.Sale.GetItensOfSale;
 using Ambev.Sale.Query.Application.Sale.GetListPaginated;
 using Ambev.Sale.Query.Domain.Repository;
 using AutoMapper;
@@ -80,6 +81,46 @@ public class SalesQueryController : BaseController
         catch (Exception ex)
         {
             return NotFound(new ApiResponseWithData<GetSaleByIdQueryResult>
+            {
+                Success = false,
+                Message = ex.Message
+            });
+        }
+    }
+
+    /// <summary>
+    /// Return ONLY itens of Sale
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpGet("GetItensOfSale/{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<List<GetItensOfSaleQueryResult>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetItensOFSale([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var request = new GetItensOfSaleQuery { Id = id };
+            var validator = new GetItensOfSaleQueryValidator(_repository);
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var response = await _mediator.Send(request, cancellationToken);
+
+            return Ok(new ApiResponseWithData<List<GetItensOfSaleQueryResult>>
+            {
+                Success = true,
+                Message = "Sale retrieved successfully",
+                Data = _mapper.Map<List<GetItensOfSaleQueryResult>>(response)
+            });
+        }
+        catch (Exception ex)
+        {
+            return NotFound(new ApiResponseWithData<List<GetItensOfSaleQueryResult>>
             {
                 Success = false,
                 Message = ex.Message

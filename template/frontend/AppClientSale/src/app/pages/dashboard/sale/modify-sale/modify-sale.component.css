@@ -1,0 +1,42 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.form-row {
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.error-messages {
+  color: red;
+  margin-bottom: 16px;
+}
+
+.error {
+  margin: 4px 0;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 16px;
+  color: #666;
+}

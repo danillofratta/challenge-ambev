@@ -1,0 +1,126 @@
+<h1 id="tableLabel">Modify Sale</h1>
+
+<div>
+  <app-loading-spinner [isLoading]="busy" [message]="'Loading'"></app-loading-spinner>
+
+  <!-- Exibe erros, se houver -->
+  <div *ngIf="_ListError.length > 0" class="error-messages">
+    <p *ngFor="let error of _ListError" class="error">{{ error }}</p>
+  </div>
+
+  <form [formGroup]="form" *ngIf="!busy" class="form-container">
+    <div class="form-row">
+      <mat-form-field class="example-full-width">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="id" type="text" placeholder="Id" readonly />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field class="example-full-width">
+        <mat-label>Customer ID</mat-label>
+        <input matInput formControlName="customerId" type="text" placeholder="Customer ID" />
+        <mat-error *ngIf="form.controls['customerId'].hasError('required')">Customer ID is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field class="example-full-width">
+        <mat-label>Customer Name</mat-label>
+        <input matInput formControlName="customerName" type="text" placeholder="Customer Name" />
+        <mat-error *ngIf="form.controls['customerName'].hasError('required')">Customer Name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field class="example-full-width">
+        <mat-label>Branch ID</mat-label>
+        <input matInput formControlName="branchId" type="text" placeholder="Branch ID" />
+        <mat-error *ngIf="form.controls['branchId'].hasError('required')">Branch ID is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field class="example-full-width">
+        <mat-label>Branch Name</mat-label>
+        <input matInput formControlName="branchName" type="text" placeholder="Branch Name" />
+        <mat-error *ngIf="form.controls['branchName'].hasError('required')">Branch Name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" [disabled]="form.invalid || busy" (click)="modify()">Modify</button>
+      <a mat-button routerLink="/sale" [disabled]="busy">Cancel</a>
+    </div>
+  </form>
+
+  <!-- Tabela de itens -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z6" *ngIf="!busy && dataSource.data.length > 0">
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Ações</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" (click)="onCancel(element.id)" [disabled]="busy">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Product ID Column -->
+    <ng-container matColumnDef="productId">
+      <th mat-header-cell *matHeaderCellDef>Product ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.productId }}</td>
+    </ng-container>
+
+    <!-- Product Name Column -->
+    <ng-container matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef>Product Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.productName }}</td>
+    </ng-container>
+
+    <!-- Quantity Column -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Quantity</th>
+      <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+    </ng-container>
+
+    <!-- Unit Price Column -->
+    <ng-container matColumnDef="unitPrice">
+      <th mat-header-cell *matHeaderCellDef>Unit Price</th>
+      <td mat-cell *matCellDef="let element">{{ element.unitPrice | currency }}</td>
+    </ng-container>
+
+    <!-- Discount Column -->
+    <ng-container matColumnDef="discount">
+      <th mat-header-cell *matHeaderCellDef>Discount</th>
+      <td mat-cell *matCellDef="let element">{{ element.discount | currency }}</td>
+    </ng-container>
+
+    <!-- Total Price Column -->
+    <ng-container matColumnDef="totalPrice">
+      <th mat-header-cell *matHeaderCellDef>Total Price</th>
+      <td mat-cell *matCellDef="let element">{{ element.totalPrice | currency }}</td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.status === 1 ? 'Active' : 'Cancelled' }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div *ngIf="!busy && dataSource.data.length === 0" class="no-data">
+    No items found for this sale.
+  </div>
+</div>
+

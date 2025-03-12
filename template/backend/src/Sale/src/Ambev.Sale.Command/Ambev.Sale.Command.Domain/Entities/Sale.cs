@@ -29,6 +29,8 @@ public class Sale : BaseEntity
     /// </summary>
     public string BranchId { get; set; }
 
+    public DateTime? CancelledAt { get; set; }
+
     /// <summary>
     /// External Identities
     /// </summary>
@@ -58,6 +60,15 @@ public class Sale : BaseEntity
     {
         Status = SaleStatus.Cancelled;
         UpdatedAt = DateTime.UtcNow;
+        CancelledAt = DateTime.UtcNow;
+    }
+
+    public bool IsCancelled()
+    {
+        if (Status == SaleStatus.Cancelled)
+            return true;
+
+        return false;
     }
 }
 

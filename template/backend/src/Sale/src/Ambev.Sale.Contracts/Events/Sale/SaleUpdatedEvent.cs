@@ -4,7 +4,7 @@ using Ambev.Sale.Query.Domain.Enum;
 
 namespace Ambev.Sale.Contracts.Events
 {
-    public class SaleUpdateEvent
+    public class SaleUpdatedEvent
     {
         public Guid Id { get; set; }
 

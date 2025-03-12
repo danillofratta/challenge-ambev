@@ -34,15 +34,26 @@ public class SalesItemCommandController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> CancelItemSale([FromBody] CancelSaleItemCommand request, CancellationToken cancellationToken)
-    {                
-        var response = await _mediator.Send(request, cancellationToken);
-
-        return Created(string.Empty, new ApiResponseWithData<CancelSaleItemResult>
+    {
+        try
         {
-            Success = true,
-            Message = "Item cancelled successfully",
-            Data = _mapper.Map<CancelSaleItemResult>(response)
-        });
+            var response = await _mediator.Send(request, cancellationToken);
+
+            return Created(string.Empty, new ApiResponseWithData<CancelSaleItemResult>
+            {
+                Success = true,
+                Message = "Item cancelled successfully",
+                Data = _mapper.Map<CancelSaleItemResult>(response)
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponseWithData<CancelSaleItemResult>
+            {
+                Success = false,
+                Message = ex.Message
+            });
+        }
     }
 }
 

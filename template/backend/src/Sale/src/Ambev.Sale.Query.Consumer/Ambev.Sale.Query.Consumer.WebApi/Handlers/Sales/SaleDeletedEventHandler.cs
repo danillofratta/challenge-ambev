@@ -1,9 +1,9 @@
 ﻿
 using Ambev.Sale.Contracts.Events;
-using Ambev.Sale.Query.Consumer.Domain.Repository;
+using Ambev.Sale.Query.Consumer.Domain.Repository.Sale;
 using Rebus.Handlers;
 
-namespace PAmbev.Sale.Query.Consumer.WebApi
+namespace Ambev.Sale.Query.Consumer.WebApi.Sales
 {
     public class SaleDeletedEventHandler : Rebus.Handlers.IHandleMessages<SaleDeletedEvent>
     {

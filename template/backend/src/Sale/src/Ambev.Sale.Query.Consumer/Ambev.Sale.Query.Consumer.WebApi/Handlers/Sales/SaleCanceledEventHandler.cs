@@ -1,10 +1,10 @@
 ﻿
 using Ambev.Sale.Contracts.Events;
-using Ambev.Sale.Query.Consumer.Domain.Repository;
+using Ambev.Sale.Query.Consumer.Domain.Repository.Sale;
 using Ambev.Sale.Query.Domain.Enum;
 using Rebus.Handlers;
 
-namespace Ambev.Sale.Query.Consumer.WebApi
+namespace Ambev.Sale.Query.Consumer.WebApi.Sales
 {
     public class SaleCanceledEventHandler : Rebus.Handlers.IHandleMessages<SaleCanceledEvent>
     {

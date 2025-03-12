@@ -35,14 +35,11 @@ namespace Ambev.Sale.Command.Application.Sale.Cancel
 
             var record = await _repositoryquery.GetByIdAsync(command.id);
 
-            var activeUserSpec = new SaleActiveSpecification();
-            if (!activeUserSpec.IsSatisfiedBy(record))
-            {
-                throw new UnauthorizedAccessException("Sale is not active");
-            }
+            var cancelsalespec = new SaleCancelSpecification();
+            if (!cancelsalespec.IsSatisfiedBy(record))
+                throw new Exception($"Sale with ID {record.Id} already cancelled.");
 
-            record.Status = Domain.Enum.SaleStatus.Cancelled;
-
+            record.Cancel();
             var update = await _repositorycommand.UpdateAsync(record);
 
             //publich event 

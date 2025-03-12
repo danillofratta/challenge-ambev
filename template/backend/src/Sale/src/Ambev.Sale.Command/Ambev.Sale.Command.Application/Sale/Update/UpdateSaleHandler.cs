@@ -6,6 +6,7 @@ using Ambev.Base.Infrastructure.Messaging;
 using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Contracts.Dto;
 using Ambev.Sale.Query.Domain.Enum;
+using Ambev.Sale.Command.Domain.Specification;
 
 namespace Ambev.Sale.Command.Application.Sale.Update
 {
@@ -38,6 +39,10 @@ namespace Ambev.Sale.Command.Application.Sale.Update
             if (existingSale == null)
                 throw new Exception($"Sale with ID {command.Id} not found.");
 
+            var cancelsalespec = new SaleCancelSpecification();
+            if (!cancelsalespec.IsSatisfiedBy(existingSale))            
+                throw new Exception($"Sale with ID {command.Id} already cancelled.");                           
+
             _mapper.Map(command, existingSale);            
 
             var update = await _repositorycommnad.UpdateAsync(existingSale);
@@ -52,7 +57,7 @@ namespace Ambev.Sale.Command.Application.Sale.Update
             
             //todo
             //using rebus
-            await _bus.PublishAsync(new SaleUpdateEvent
+            await _bus.PublishAsync(new SaleUpdatedEvent
             {
                 Id = update.Id,
                 Number = update.Number,

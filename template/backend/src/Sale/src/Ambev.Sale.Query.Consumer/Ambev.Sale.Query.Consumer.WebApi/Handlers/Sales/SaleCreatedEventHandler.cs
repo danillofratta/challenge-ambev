@@ -1,11 +1,11 @@
 ﻿
 using Ambev.Sale.Contracts.Events;
-using Ambev.Sale.Query.Consumer.Domain.Repository;
+using Ambev.Sale.Query.Consumer.Domain.Repository.Sale;
 using Ambev.Sale.Query.Domain.Enum;
 using Rebus.Handlers;
 using Rebus.Threading;
 
-namespace Ambev.Sale.Query.Consumer.WebApi
+namespace Ambev.Sale.Query.Consumer.WebApi.Sales
 {
     public class SaleCreatedEventHandler : Rebus.Handlers.IHandleMessages<SaleCreatedEvent>
     {

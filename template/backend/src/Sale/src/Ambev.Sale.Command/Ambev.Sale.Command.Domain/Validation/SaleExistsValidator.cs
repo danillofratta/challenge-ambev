@@ -14,7 +14,7 @@ public class SaleExistsValidator : AbstractValidator<Ambev.Sale.Command.Domain.E
 
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage("Sale is required")
-            .MustAsync(ExistInDatabase).WithMessage("Sale not found");          
+            .MustAsync(ExistInDatabase).WithMessage("Sale not found");                      
     }
 
     private async Task<bool> ExistInDatabase(Guid id, CancellationToken cancellationToken)
