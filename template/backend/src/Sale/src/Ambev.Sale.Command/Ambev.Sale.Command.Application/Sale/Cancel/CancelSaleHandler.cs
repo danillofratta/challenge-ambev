@@ -5,7 +5,7 @@ using Ambev.Sale.Core.Domain.Repository;
 using Ambev.Base.Infrastructure.Messaging;
 using Ambev.Sale.Command.Application.Sale.Create;
 using Ambev.Sale.Contracts.Events;
-
+using Ambev.Sale.Command.Domain.Specification;
 
 namespace Ambev.Sale.Command.Application.Sale.Cancel
 {
@@ -31,9 +31,16 @@ namespace Ambev.Sale.Command.Application.Sale.Cancel
             var validator = new CancelSaleCommandValidator(_repositoryquery);
             var validationResult = await validator.ValidateAsync(command, cancellationToken);
             if (validationResult != null && !validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
+                throw new ValidationException(validationResult.Errors);            
 
             var record = await _repositoryquery.GetByIdAsync(command.id);
+
+            var activeUserSpec = new SaleActiveSpecification();
+            if (!activeUserSpec.IsSatisfiedBy(record))
+            {
+                throw new UnauthorizedAccessException("Sale is not active");
+            }
+
             record.Status = Domain.Enum.SaleStatus.Cancelled;
 
             var update = await _repositorycommand.UpdateAsync(record);

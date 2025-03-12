@@ -23,6 +23,29 @@ public class SaleItem : BaseEntity
     public decimal Discount { get; set; }
     public decimal TotalPrice { get; set; }
     public SaleItemStatus Status { get; set; } = SaleItemStatus.NotCancelled;
+
+    public void Create()
+    {
+        Status = SaleItemStatus.NotCancelled;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void Cancel()
+    {
+        Status = SaleItemStatus.Cancelled;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public SaleItem() { }
+
+    public SaleItem(string productid, string productname, int quantity, decimal unitprice, SaleItemStatus status)
+    {
+        this.ProductId = productid;
+        this.ProductName = productname;
+        this.Quantity = quantity;
+        this.UnitPrice = unitprice;
+        this.Status = status;
+    }
 }
 
 

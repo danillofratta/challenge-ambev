@@ -17,8 +17,4 @@
     <ProjectReference Include="..\..\..\..\Base\src\Ambev.Base.Domain\Ambev.Base.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Specification\" />
-  </ItemGroup>
-
 </Project>

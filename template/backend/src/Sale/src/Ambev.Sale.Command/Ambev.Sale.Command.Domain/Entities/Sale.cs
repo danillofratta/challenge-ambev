@@ -1,5 +1,7 @@
 ﻿using Ambev.Base.Domain.Entities;
+using Ambev.Base.Domain.Validation;
 using Ambev.Sale.Command.Domain.Enum;
+using Ambev.Sale.Command.Domain.Validation;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ambev.Sale.Command.Domain.Entities;
@@ -33,6 +35,29 @@ public class Sale : BaseEntity
     public string BranchName { get; set; } = string.Empty;
     public decimal TotalAmount { get; set; }
     public SaleStatus Status { get; set; } = SaleStatus.NotCancelled;
-    public List<SaleItem> SaleItens { get; set; } = new()!;    
+    public List<SaleItem> SaleItens { get; set; } = new()!;
+
+    public ValidationResultDetail Validate()
+    {
+        var validator = new SaleBasicValidator();
+        var result = validator.Validate(this);
+        return new ValidationResultDetail
+        {
+            IsValid = result.IsValid,
+            Errors = result.Errors.Select(o => (ValidationErrorDetail)o)
+        };
+    }
+
+    public void Create()
+    {
+        Status = SaleStatus.NotCancelled;        
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void Cancel()
+    {
+        Status = SaleStatus.Cancelled;
+        UpdatedAt = DateTime.UtcNow;
+    }
 }
 

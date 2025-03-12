@@ -8,6 +8,7 @@ using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Contracts.Dto;
 using Ambev.Sale.Command.Domain.Enum;
 using Ambev.Sale.Query.Domain.Enum;
+using Rebus.Bus;
 
 namespace Ambev.Sale.Command.Application.Sale.Create
 {

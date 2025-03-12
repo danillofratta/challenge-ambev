@@ -24,7 +24,10 @@ public class SaleBasicValidator : AbstractValidator<Ambev.Sale.Command.Domain.En
         RuleForEach(x => x.SaleItens).ChildRules(items =>
         {
             items.RuleFor(i => i.ProductId)
-                .NotEmpty().WithMessage("Product is required");
+                .NotEmpty().WithMessage("Product ID is required");
+
+            items.RuleFor(i => i.ProductName)
+                .NotEmpty().WithMessage("Product Name is required");
 
             items.RuleFor(i => i.Quantity)
                 .GreaterThan(0).WithMessage("The quantity must be greater than zero.");

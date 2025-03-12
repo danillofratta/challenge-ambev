@@ -12,12 +12,12 @@ namespace Ambev.Sale.Command.WebApiItem;
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
-public class SalesItemController : ControllerBase
+public class SalesItemCommandController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
 
-    public SalesItemController(IMediator mediator, IMapper mapper)
+    public SalesItemCommandController(IMediator mediator, IMapper mapper)
     {
         _mediator = mediator;
         _mapper = mapper;
