@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "Sale\\src\\Ambev.Sale.Command\\Ambev.Sale.Command.WebApi\\Ambev.Sale.Command.WebApi.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Sale\\src\\Ambev.Sale.Query\\Ambev.Sale.Query.WebApi\\Ambev.Sale.Query.WebApi.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Sale\\src\\Ambev.Sale.Query.Consumer\\Ambev.Sale.Query.Consumer.WebApi\\Ambev.Sale.Query.Consumer.WebApi.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
