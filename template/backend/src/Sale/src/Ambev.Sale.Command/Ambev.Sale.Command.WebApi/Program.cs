@@ -15,6 +15,11 @@ using Rebus.Retry.Simple;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(5000);
+//});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -40,7 +45,11 @@ builder.Services.AddScoped<ISaleItemQueryRepository, SaleItemQueryRepository>();
 //TODO move to other project
 builder.Services.AddRebus(configure => configure
                 .Logging(l => l.Console())
-                .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleCommandEndPoint"))                
+#if DEBUG
+                .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleCommandEndPoint"))
+#else
+                .Transport(t => t.UseRabbitMq("amqp://guest:guest@rabbitmq", "SaleCommandEndPoint"))
+#endif
                 .Routing(r => r.TypeBased()                
                     .Map<SaleCreatedEvent>("SaleQueryEndPoint")
                     .Map<SaleUpdatedEvent>("SaleQueryEndPoint")

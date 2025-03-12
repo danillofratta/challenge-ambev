@@ -1,86 +1,54 @@
-# Developer Evaluation Project
-
-`READ CAREFULLY`
-
 ## Instructions
-**The test below will have up to 7 calendar days to be delivered from the date of receipt of this manual.**
 
-- The code must be versioned in a public Github repository and a link must be sent for evaluation once completed
-- Upload this template to your repository and start working from it
-- Read the instructions carefully and make sure all requirements are being addressed
-- The repository must provide instructions on how to configure, execute and test the project
-- Documentation and overall organization will also be taken into consideration
+The project was created following instructions.
 
-## Use Case
-**You are a developer on the DeveloperStore team. Now we need to implement the API prototypes.**
+I followed the following premises for development:
+- based on microservices
+- based on a read and write database
+- based on messaging with rebus between microservices.
 
-As we work with `DDD`, to reference entities from other domains, we use the `External Identities` pattern with denormalization of entity descriptions.
+For development:
+- added the template and performed refactoring to add future projects based on microservices/context
+- created a project structure for developing a specific context, thinking about microservices
+- created a project structure for testing a specific context, thinking about microservices
+- created a project for writing and another query following CQRS premises to also test messaging that was built in a basic way using a rebus ROM that is responsible for updating the records recorded in the writing database to the reading database
+- created a base project to share the basic architecture
 
-Therefore, you will write an API (complete CRUD) that handles sales records. The API needs to be able to inform:
+## Instructions for running
 
-* Sale number
-* Date when the sale was made
-* Customer
-* Total sale amount
-* Branch where the sale was made
-* Products
-* Quantities
-* Unit prices
-* Discounts
-* Total amount for each item
-* Cancelled/Not Cancelled
+# Run Docker:
 
-It's not mandatory, but it would be a differential to build code for publishing events of:
-* SaleCreated
-* SaleModified
-* SaleCancelled
-* ItemCancelled
+Run RabbitMQ, abrir cli:  
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management  
 
-If you write the code, **it's not required** to actually publish to any Message Broker. You can log a message in the application log or however you find most convenient.
+Run PostgreSql, abrir cli:  
+docker run -d --name postgres-container -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=root -p 5432:5432 -v postgres_data:/var/lib/postgresql/data postgres
 
-### Business Rules
+# Run Migration to Inicialize database:
 
-* Purchases above 4 identical items have a 10% discount
-* Purchases between 10 and 20 identical items have a 20% discount
-* It's not possible to sell above 20 identical items
-* Purchases below 4 items cannot have a discount
+WriteDb
+* Step 1: go to backend\src\Sale\src\Ambev.Sale.Command\Ambev.Sale.Command.Infrastructure.Orm
+* Step 2: open terminal
+* Step 3: run scripts
+    * dotnet ef migrations add InitialCreate
+	* dotnet ef database update
 
-These business rules define quantity-based discounting tiers and limitations:
+ReadDb
+* Step 1: go to backend\src\Sale\src\Ambev.Sale.Query\Ambev.Sale.Query.Infrastructure.Orm
+* Step 2: open terminal
+* Step 3: run scripts
+    * dotnet ef migrations add InitialCreate
+	* dotnet ef database update
 
-1. Discount Tiers:
-   - 4+ items: 10% discount
-   - 10-20 items: 20% discount
+# Run Backend:
+* Step 1: go to template\backend\src
+* Step 2: open soluction
+* Step 3: run soluction (perfil star PROJECTS)
 
-2. Restrictions:
-   - Maximum limit: 20 items per product
-   - No discounts allowed for quantities below 4 items
+# Run FrontEnd:
+* Step 1: go to template\frontend\src\AppClientSale
+* Step 2: open soluction 
+* Step 3: run soluction  
+(Developed in a basic way for testing only)
 
-## Overview
-This section provides a high-level overview of the project and the various skills and competencies it aims to assess for developer candidates. 
 
-See [Overview](/.doc/overview.md)
-
-## Tech Stack
-This section lists the key technologies used in the project, including the backend, testing, frontend, and database components. 
-
-See [Tech Stack](/.doc/tech-stack.md)
-
-## Frameworks
-This section outlines the frameworks and libraries that are leveraged in the project to enhance development productivity and maintainability. 
-
-See [Frameworks](/.doc/frameworks.md)
-
-<!-- 
-## API Structure
-This section includes links to the detailed documentation for the different API resources:
-- [API General](./docs/general-api.md)
-- [Products API](/.doc/products-api.md)
-- [Carts API](/.doc/carts-api.md)
-- [Users API](/.doc/users-api.md)
-- [Auth API](/.doc/auth-api.md)
--->
-
-## Project Structure
-This section describes the overall structure and organization of the project files and directories. 
-
-See [Project Structure](/.doc/project-structure.md)

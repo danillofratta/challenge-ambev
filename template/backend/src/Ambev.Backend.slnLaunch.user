@@ -1,6 +1,6 @@
 [
   {
-    "Name": "Novo Perfil",
+    "Name": "Start PROJECT",
     "Projects": [
       {
         "Path": "Sale\\src\\Ambev.Sale.Command\\Ambev.Sale.Command.WebApi\\Ambev.Sale.Command.WebApi.csproj",

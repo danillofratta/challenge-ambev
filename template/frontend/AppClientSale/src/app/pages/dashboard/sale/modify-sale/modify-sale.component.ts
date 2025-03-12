@@ -53,7 +53,8 @@ export class ModifySaleComponent implements OnInit {
       customerName: ['customerName', Validators.compose([
         Validators.required
       ])],
-      status: ['status'],
+        status: ['status'],
+        totalAmount: ['totalAmount'],
       branchId: ['branchId', Validators.compose([
               Validators.required
             ])],
@@ -81,6 +82,8 @@ export class ModifySaleComponent implements OnInit {
             this.form.controls['customerName'].setValue(response.data.data.customerName);
             this.form.controls['branchId'].setValue(response.data.data.branchId);
             this.form.controls['branchName'].setValue(response.data.data.branchName);
+            this.form.controls['totalAmount'].setValue(response.data.data.totalAmount);
+            
 
             if (response.data.data.status == 1)
               this.form.controls['status'].setValue("Active");

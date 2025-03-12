@@ -1,0 +1,68 @@
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: SaleDb
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root      
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ambev.sale.command.webapi:
+    image: ${DOCKER_REGISTRY-}ambevsalecommandwebapi
+    build:
+      context: .
+      dockerfile: Sale/src/Ambev.Sale.Command/Ambev.Sale.Command.WebApi/Dockerfile
+    depends_on: 
+      - rabbitmq
+      - postgres
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  ambev.sale.query.consumer.webapi:
+    image: ${DOCKER_REGISTRY-}ambevsalequeryconsumerwebapi
+    build:
+      context: .
+      dockerfile: Sale/src/Ambev.Sale.Query.Consumer/Ambev.Sale.Query.Consumer.WebApi/Dockerfile
+    depends_on: 
+      - rabbitmq
+      - postgres
+    ports:
+      - "6000:6000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  ambev.sale.query.webapi:
+    image: ${DOCKER_REGISTRY-}ambevsalequerywebapi
+    build:
+      context: .
+      dockerfile: Sale/src/Ambev.Sale.Query/Ambev.Sale.Query.WebApi/Dockerfile
+    depends_on: 
+      - rabbitmq
+      - postgres
+    ports:
+      - "7000:7000"     
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+volumes:
+  postgres_data:
+

@@ -16,47 +16,51 @@
       </mat-form-field>
     </div>
 
-    <div class="form-row">
-      <mat-form-field class="example-full-width">
-        <mat-label>Status</mat-label>
-        <input matInput formControlName="status" type="text" readonly />
-      </mat-form-field>
+    <div class="form-row-pair">      
+        <mat-form-field class="example-half-width">
+          <mat-label>Status</mat-label>
+          <input matInput formControlName="status" type="text" readonly />
+        </mat-form-field>           
+        <mat-form-field class="example-half-width">
+          <mat-label>Total</mat-label>
+          <input matInput formControlName="totalAmount" type="number" readonly />
+        </mat-form-field>     
     </div>
 
-    <div class="form-row">
-      <mat-form-field class="example-full-width">
-        <mat-label>Customer ID</mat-label>
-        <input matInput formControlName="customerId" type="text" placeholder="Customer ID" />
-        <mat-error *ngIf="form.controls['customerId'].hasError('required')">Customer ID is required</mat-error>
-      </mat-form-field>
+    <div class="form-row-pair">
+     
+        <mat-form-field class="example-half-width">
+          <mat-label>Customer ID</mat-label>
+          <input matInput formControlName="customerId" type="text" placeholder="Customer ID" />
+          <mat-error *ngIf="form.controls['customerId'].hasError('required')">Customer ID is required</mat-error>
+        </mat-form-field>
+     
+        <mat-form-field class="example-half-width">
+          <mat-label>Customer Name</mat-label>
+          <input matInput formControlName="customerName" type="text" placeholder="Customer Name" />
+          <mat-error *ngIf="form.controls['customerName'].hasError('required')">Customer Name is required</mat-error>
+        </mat-form-field>
+    
     </div>
 
-    <div class="form-row">
-      <mat-form-field class="example-full-width">
-        <mat-label>Customer Name</mat-label>
-        <input matInput formControlName="customerName" type="text" placeholder="Customer Name" />
-        <mat-error *ngIf="form.controls['customerName'].hasError('required')">Customer Name is required</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="form-row">
-      <mat-form-field class="example-full-width">
-        <mat-label>Branch ID</mat-label>
-        <input matInput formControlName="branchId" type="text" placeholder="Branch ID" />
-        <mat-error *ngIf="form.controls['branchId'].hasError('required')">Branch ID is required</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="form-row">
-      <mat-form-field class="example-full-width">
-        <mat-label>Branch Name</mat-label>
-        <input matInput formControlName="branchName" type="text" placeholder="Branch Name" />
-        <mat-error *ngIf="form.controls['branchName'].hasError('required')">Branch Name is required</mat-error>
-      </mat-form-field>
+    <div class="form-row-pair">
+      
+        <mat-form-field class="example-half-width">
+          <mat-label>Branch ID</mat-label>
+          <input matInput formControlName="branchId" type="text" placeholder="Branch ID" />
+          <mat-error *ngIf="form.controls['branchId'].hasError('required')">Branch ID is required</mat-error>
+        </mat-form-field>
+     
+        <mat-form-field class="example-half-width">
+          <mat-label>Branch Name</mat-label>
+          <input matInput formControlName="branchName" type="text" placeholder="Branch Name" />
+          <mat-error *ngIf="form.controls['branchName'].hasError('required')">Branch Name is required</mat-error>
+        </mat-form-field>
+     
     </div>
 
     <div class="form-actions">
-      <button mat-raised-button color="primary" [disabled]="form.invalid || busy" (click)="modify()">Modify</button>
+      <button mat-raised-button color="primary" [disabled]="form.invalid || busy" (click)="modify()">Update</button>
       <a mat-button routerLink="/sale" [disabled]="busy">Cancel</a>
     </div>
   </form>
@@ -130,4 +134,3 @@
     No items found for this sale.
   </div>
 </div>
-

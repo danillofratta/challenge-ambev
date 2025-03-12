@@ -17,14 +17,13 @@ public class SaleQueryDbContext : DbContext
 
 #if DEBUG
             //run docker with VS
-            //todo craete appsettings
-            //var conn = "Host=localhost;Port=5432;Username=admin;Password=root;Database=apisalestock;";
+            //todo craete appsettings            
             var conn = "Host=localhost;Port=5432;Username=admin;Password=root;Database=SaleReadDb;";
             optionsBuilder.UseNpgsql(conn);
 #else
         //run docker 
         //todo craete appsettings
-        var conn = "Host=postgres_db;Port=5432;Username=admin;Password=root;Database=apitest;";
+        var conn = "Host=postgres_db;Port=5432;Username=admin;Password=root;Database=SaleReadDb;";
         optionsBuilder.UseNpgsql(conn);
 #endif
 

@@ -13,6 +13,11 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(6000);
+//});
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -31,7 +36,11 @@ builder.Services.AddScoped<ISaleItemCommandConsumerRepository, SaleItemCommandCo
 builder.Services.AddScoped<ISaleItemQueryConsumerRepository, SaleItemQueryConsumerRepository>();
 
 builder.Services.AddRebus(configure => configure
+#if DEBUG
     .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleQueryEndPoint"))
+#else
+                .Transport(t => t.UseRabbitMq("amqp://guest:guest@rabbitmq", "SaleQueryEndPoint"))
+#endif
     .Options(o => o.SetBusName("SaleQueryEndPoint"))
     .Logging(l => l.Console()))
     .AutoRegisterHandlersFromAssemblyOf<SaleCanceledEventHandler>()

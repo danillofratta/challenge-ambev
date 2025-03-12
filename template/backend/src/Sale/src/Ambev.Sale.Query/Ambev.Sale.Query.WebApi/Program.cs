@@ -5,7 +5,10 @@ using Ambev.Sale.Query.Infrastructure.Orm.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(7000);
+//});
 
 builder.Services.AddControllers();
 

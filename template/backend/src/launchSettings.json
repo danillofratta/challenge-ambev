@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "ambev.sale.command.webapi": "StartDebugging",
+        "ambev.sale.query.consumer.webapi": "StartDebugging",
+        "ambev.sale.query.webapi": "StartDebugging"
+      }
+    }
+  }
+}
