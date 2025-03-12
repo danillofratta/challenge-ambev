@@ -8,9 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driven", "Driven", "{ADC12148-2A20-4955-8712-902F3D823BF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{0B4C2258-7DF2-45F0-B86E-F62C000E4A4A}"
-	ProjectSection(SolutionItems) = preProject
-		Base\src\Ambev.Base.Infrastructure.Query.Orm\Ambev.Base.Infrastructure.Query.Orm.csproj = Base\src\Ambev.Base.Infrastructure.Query.Orm\Ambev.Base.Infrastructure.Query.Orm.csproj
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drivers", "Drivers", "{89087BEB-0E99-4188-852F-67322AE3DA62}"
 EndProject
@@ -31,9 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambev.Sale.Contracts", "Sale\src\Ambev.Sale.Contracts\Ambev.Sale.Contracts.csproj", "{DA35585B-AD65-4D3E-BB52-067479F46599}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{248BA673-D892-46B1-8804-E74BDFD1CD50}"
-	ProjectSection(SolutionItems) = preProject
-		Base\src\Ambev.Base.Infrastructure.Query.Orm\Ambev.Base.Infrastructure.Query.Orm.csproj = Base\src\Ambev.Base.Infrastructure.Query.Orm\Ambev.Base.Infrastructure.Query.Orm.csproj
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{ECB66255-7711-4FA2-AF47-E685CBEC21EC}"
 EndProject
@@ -72,6 +66,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambev.Base.Infrastructure.Messaging", "Base\src\Ambev.Base.Infrastructure.Messaging\Ambev.Base.Infrastructure.Messaging.csproj", "{079357E8-A245-4804-98F4-7F7D3947B55B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambev.Base.Infrastructure.Messaging.Rebus", "Base\src\Ambev.Base.Infrastructure.Messaging.Rebus\Ambev.Base.Infrastructure.Messaging.Rebus.csproj", "{214323EB-66FB-4461-8771-BF9B09E297ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambev.Base.Infrastructure.Query.Orm", "Base\src\Ambev.Base.Infrastructure.Query.Orm\Ambev.Base.Infrastructure.Query.Orm.csproj", "{98D3CA27-4233-4A9E-9A48-7C186446CD11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +143,10 @@ Global
 		{214323EB-66FB-4461-8771-BF9B09E297ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{214323EB-66FB-4461-8771-BF9B09E297ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{214323EB-66FB-4461-8771-BF9B09E297ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98D3CA27-4233-4A9E-9A48-7C186446CD11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98D3CA27-4233-4A9E-9A48-7C186446CD11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98D3CA27-4233-4A9E-9A48-7C186446CD11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98D3CA27-4233-4A9E-9A48-7C186446CD11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,6 +182,7 @@ Global
 		{BFAA052D-4410-4A5A-84BD-1C104198DC20} = {248BA673-D892-46B1-8804-E74BDFD1CD50}
 		{079357E8-A245-4804-98F4-7F7D3947B55B} = {248BA673-D892-46B1-8804-E74BDFD1CD50}
 		{214323EB-66FB-4461-8771-BF9B09E297ED} = {248BA673-D892-46B1-8804-E74BDFD1CD50}
+		{98D3CA27-4233-4A9E-9A48-7C186446CD11} = {248BA673-D892-46B1-8804-E74BDFD1CD50}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13EAB81A-C6B2-4C22-B4DE-C6603FC445B6}
