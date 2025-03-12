@@ -33,7 +33,7 @@ namespace Ambev.Sale.Command.Application.Sale.Delete
             var record = await _repositoryquery.GetByIdAsync(command.Id);
 
             var cancelsalespec = new SaleCancelSpecification();
-            if (!cancelsalespec.IsSatisfiedBy(record))
+            if (cancelsalespec.IsSatisfiedBy(record))
                 throw new Exception($"Sale with ID {command.Id} already cancelled.");
 
             record.Status = Domain.Enum.SaleStatus.Cancelled;

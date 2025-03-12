@@ -39,17 +39,14 @@ builder.Services.AddScoped<ISaleItemQueryRepository, SaleItemQueryRepository>();
 
 //TODO move to other project
 builder.Services.AddRebus(configure => configure
-                .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleCommandEndPoint"))
-                .Routing(r => r.TypeBased()
+                .Logging(l => l.Console())
+                .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleCommandEndPoint"))                
+                .Routing(r => r.TypeBased()                
                     .Map<SaleCreatedEvent>("SaleQueryEndPoint")
                     .Map<SaleUpdatedEvent>("SaleQueryEndPoint")
                     .Map<SaleDeletedEvent>("SaleQueryEndPoint")
                     .Map<SaleCanceledEvent>("SaleQueryEndPoint")
-                    .Map<SaleItemCanceledEvent>("SaleQueryEndPoint"))
-                .Logging(l => l.Trace())
-                .Options(o => o.SetNumberOfWorkers(1))
-                .Options(o => o.SetMaxParallelism(1))
-                .Options(o => o.RetryStrategy(errorQueueName: "errors", maxDeliveryAttempts: 5)));
+                    .Map<SaleItemCanceledEvent>("SaleQueryEndPoint")));
 
 builder.Services.AddScoped<IMessageBus, RebusAdapter>();
 builder.Services.AddScoped<SaleDiscountService>();
@@ -74,5 +71,15 @@ app.UseCors((g) => g.AllowAnyOrigin());
 app.UseCors((g) => g.AllowCredentials());
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var bus = scope.ServiceProvider.GetRequiredService<IBus>();
+    await bus.Subscribe<SaleCreatedEvent>();
+    await bus.Subscribe<SaleUpdatedEvent>();
+    await bus.Subscribe<SaleDeletedEvent>();
+    await bus.Subscribe<SaleCanceledEvent>();
+    await bus.Subscribe<SaleItemCanceledEvent>();
+}
 
 app.Run();

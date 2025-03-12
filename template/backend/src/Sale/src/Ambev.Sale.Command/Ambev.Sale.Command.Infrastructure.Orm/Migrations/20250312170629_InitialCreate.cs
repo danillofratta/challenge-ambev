@@ -22,6 +22,7 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
                     CustomerId = table.Column<string>(type: "text", nullable: false),
                     CustomerName = table.Column<string>(type: "text", nullable: false),
                     BranchId = table.Column<string>(type: "text", nullable: false),
+                    CancelledAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     BranchName = table.Column<string>(type: "text", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "numeric", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),

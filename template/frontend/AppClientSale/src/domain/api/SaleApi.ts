@@ -46,13 +46,12 @@ export class SaleApi extends API {
     );
   }
 
-  async Create(record: CreateSaleRequestDto) {
-    //return this._http.post(`${this._baseurl + this._endpoint}`, record).subscribe();
+  async Create(record: CreateSaleRequestDto) {    
     return this._http.post<ApiResponseDto<CreateSaleRequestDto>>(`${this._baseurlcommand + this._endpointcommand}`, record);
   }
 
   async Update(record: ModifySaleResponseDto) {
-    return this._http.put(`${this._baseurlcommand + this._endpointcommand}`, record).subscribe();
+    return this._http.put<ApiResponseDto<ModifySaleResponseDto>>(`${this._baseurlcommand + this._endpointcommand}`, record);
   }
 
   async Cancel(record: CancelSaleResponseDto) {

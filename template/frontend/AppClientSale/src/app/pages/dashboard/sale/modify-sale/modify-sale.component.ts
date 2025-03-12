@@ -53,7 +53,7 @@ export class ModifySaleComponent implements OnInit {
       customerName: ['customerName', Validators.compose([
         Validators.required
       ])],
-
+      status: ['status'],
       branchId: ['branchId', Validators.compose([
               Validators.required
             ])],
@@ -81,6 +81,11 @@ export class ModifySaleComponent implements OnInit {
             this.form.controls['customerName'].setValue(response.data.data.customerName);
             this.form.controls['branchId'].setValue(response.data.data.branchId);
             this.form.controls['branchName'].setValue(response.data.data.branchName);
+
+            if (response.data.data.status == 1)
+              this.form.controls['status'].setValue("Active");
+            else
+              this.form.controls['status'].setValue("Cancelled");
 
             //this.dataSource.data = response.data.saleItems || [];
             this.loadSaleItems(this.id!);
@@ -157,17 +162,32 @@ export class ModifySaleComponent implements OnInit {
       const record = this.form.value as ModifySaleResponseDto;
 
       try {
-        await this.apiSale.Update(record);
 
-        this.form.reset();
 
-        this.router.navigate(['/sale']);    
+        await (await this.apiSale.Update(record)).subscribe({
+          next: (response) => {
+            if (response.success) {
+              this.router.navigate(['/sale']);
+            } else {
+              this._ListError.push(response.message);
+            }
+          },
+          error: (error) => {
+            console.error('Error occurred:', error);
+
+            this._ListError.push(error.error.message);
+            this.busy = false;
+          },
+          complete: () => {
+            this.busy = false;
+          }
+        });     
 
       } catch (error) {
         console.error('Erro ao salvar o stock:', error);
       } finally {
         this.busy = false;
-      }
+      }        
     }
   }
 

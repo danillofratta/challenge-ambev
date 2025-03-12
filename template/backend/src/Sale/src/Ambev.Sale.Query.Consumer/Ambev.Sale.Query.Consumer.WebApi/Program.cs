@@ -1,4 +1,6 @@
 using Ambev.Sale.Command.Infrastructure.Orm;
+using Ambev.Sale.Contracts.Events.SaleItem;
+using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Query.Consumer.Domain.Repository.Sale;
 using Ambev.Sale.Query.Consumer.Domain.Repository.SaleItem;
 using Ambev.Sale.Query.Consumer.Infrastructure.Orm.Repository.Sale;
@@ -29,8 +31,9 @@ builder.Services.AddScoped<ISaleItemCommandConsumerRepository, SaleItemCommandCo
 builder.Services.AddScoped<ISaleItemQueryConsumerRepository, SaleItemQueryConsumerRepository>();
 
 builder.Services.AddRebus(configure => configure
-    .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleQueryEndPoint"))        
-    .Logging(l => l.Trace()))
+    .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleQueryEndPoint"))
+    .Options(o => o.SetBusName("SaleQueryEndPoint"))
+    .Logging(l => l.Console()))
     .AutoRegisterHandlersFromAssemblyOf<SaleCanceledEventHandler>()
     .AutoRegisterHandlersFromAssemblyOf<SaleCreatedEventHandler>()
     .AutoRegisterHandlersFromAssemblyOf<SaleUpdatedEventHandler>()
@@ -58,6 +61,16 @@ app.UseCors((g) => g.AllowAnyOrigin());
 app.UseCors((g) => g.AllowCredentials());
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var bus = scope.ServiceProvider.GetRequiredService<IBus>();
+    await bus.Subscribe<SaleCreatedEvent>();
+    await bus.Subscribe<SaleUpdatedEvent>();
+    await bus.Subscribe<SaleDeletedEvent>();
+    await bus.Subscribe<SaleCanceledEvent>();
+    await bus.Subscribe<SaleItemCanceledEvent>();
+}
 
 
 app.Run();

@@ -8,7 +8,7 @@ public class SaleItemConfiguration : IEntityTypeConfiguration<Ambev.Sale.Command
 {
     public void Configure(EntityTypeBuilder<Ambev.Sale.Command.Domain.Entities.SaleItem> builder)
     {
-        builder.HasKey(u => u.Id);        
+        builder.HasKey(u => u.Id);
     }
 }
 

@@ -36,18 +36,22 @@ public class SaleRecalculationService
         _discountService.ValidateSaleItems(activeItems);
 
         sale.TotalAmount = activeItems.Sum(x => x.TotalPrice);
-        UpdateSaleStatus(sale);
+        UpdateSaleStatus(sale, activeItems);
     }
 
-    private void UpdateSaleStatus(Sale sale)
+    /// <summary>
+    /// If all itens cancelled, then cancel sale
+    /// </summary>
+    /// <param name="sale"></param>
+    private void UpdateSaleStatus(Sale sale, List<SaleItem> listitemactive)
     {
-        if (!sale.SaleItens.Any(x => x.Status != SaleItemStatus.Cancelled))
+        if (listitemactive.Count > 0)
         {
-            sale.Status = SaleStatus.Cancelled;
+            sale.Status = SaleStatus.NotCancelled;
         }
         else if (sale.Status != SaleStatus.Cancelled)
         {
-            sale.Status = SaleStatus.NotCancelled;
+            sale.Status = SaleStatus.Cancelled;
         }
     }
 }

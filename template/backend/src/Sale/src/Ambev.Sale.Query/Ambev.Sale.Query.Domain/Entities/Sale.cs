@@ -25,6 +25,8 @@ public class Sale : BaseEntity
     /// </summary>
     public string BranchId { get; set; } = string.Empty;
 
+    public DateTime? CancelledAt { get; set; }
+
     /// <summary>
     /// External Identities
     /// </summary>

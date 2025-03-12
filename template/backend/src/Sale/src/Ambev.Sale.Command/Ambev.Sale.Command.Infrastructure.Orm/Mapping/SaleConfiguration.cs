@@ -8,7 +8,12 @@ public class SaleConfiguration : IEntityTypeConfiguration<Ambev.Sale.Command.Dom
 {
     public void Configure(EntityTypeBuilder<Ambev.Sale.Command.Domain.Entities.Sale> builder)
     {
-        builder.HasKey(u => u.Id);        
+        builder.HasKey(u => u.Id);
+
+        builder.HasMany(s => s.SaleItens)
+            .WithOne(si => si.Sale)
+            .HasForeignKey(si => si.SaleId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
 

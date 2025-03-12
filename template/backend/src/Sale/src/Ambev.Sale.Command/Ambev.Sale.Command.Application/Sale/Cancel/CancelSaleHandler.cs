@@ -36,7 +36,7 @@ namespace Ambev.Sale.Command.Application.Sale.Cancel
             var record = await _repositoryquery.GetByIdAsync(command.id);
 
             var cancelsalespec = new SaleCancelSpecification();
-            if (!cancelsalespec.IsSatisfiedBy(record))
+            if (cancelsalespec.IsSatisfiedBy(record))
                 throw new Exception($"Sale with ID {record.Id} already cancelled.");
 
             record.Cancel();

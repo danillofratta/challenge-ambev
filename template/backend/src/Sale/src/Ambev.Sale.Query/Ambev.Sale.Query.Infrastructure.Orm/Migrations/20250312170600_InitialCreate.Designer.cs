@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
+namespace Ambev.Sale.Query.Infrastructure.Orm.Migrations
 {
-    [DbContext(typeof(SaleCommandDbContext))]
-    [Migration("20250311172709_InitialCreate")]
+    [DbContext(typeof(SaleQueryDbContext))]
+    [Migration("20250312170600_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Ambev.Sale.Command.Domain.Entities.Sale", b =>
+            modelBuilder.Entity("Ambev.Sale.Query.Domain.Entities.Sale", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,6 +38,9 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
                     b.Property<string>("BranchName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("CancelledAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -54,10 +57,7 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Number")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Number"));
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -73,7 +73,7 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("Ambev.Sale.Command.Domain.Entities.SaleItem", b =>
+            modelBuilder.Entity("Ambev.Sale.Query.Domain.Entities.SaleItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,9 +121,9 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
                     b.ToTable("SaleItens");
                 });
 
-            modelBuilder.Entity("Ambev.Sale.Command.Domain.Entities.SaleItem", b =>
+            modelBuilder.Entity("Ambev.Sale.Query.Domain.Entities.SaleItem", b =>
                 {
-                    b.HasOne("Ambev.Sale.Command.Domain.Entities.Sale", "Sale")
+                    b.HasOne("Ambev.Sale.Query.Domain.Entities.Sale", "Sale")
                         .WithMany("SaleItens")
                         .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -132,7 +132,7 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
                     b.Navigation("Sale");
                 });
 
-            modelBuilder.Entity("Ambev.Sale.Command.Domain.Entities.Sale", b =>
+            modelBuilder.Entity("Ambev.Sale.Query.Domain.Entities.Sale", b =>
                 {
                     b.Navigation("SaleItens");
                 });

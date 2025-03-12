@@ -19,13 +19,13 @@ namespace Ambev.Sale.Query.Consumer.WebApi.SalesItem
 
         public async Task Handle(SaleItemCanceledEvent message)
         {
-            var sale = await _repositoryquery.GetByIdAsync(message.Id);
+            var saleitem = await _repositoryquery.GetByIdAsync(message.Id);
 
-            if (sale != null)
+            if (saleitem != null)
             {
-                sale.Status = SaleItemStatus.Cancelled;
+                saleitem.Status = SaleItemStatus.Cancelled;
 
-                await _repositorycommnad.UpdateAsync(sale);
+                await _repositorycommnad.UpdateAsync(saleitem);
             }
         }
     }

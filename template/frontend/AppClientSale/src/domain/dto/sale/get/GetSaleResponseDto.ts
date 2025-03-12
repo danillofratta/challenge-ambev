@@ -8,7 +8,7 @@ export interface GetSaleResponseDto {
   customerName: string;
   branchId: string;
   branchName: string;
-  Status: SaleStatusDto;
+  status: SaleStatusDto;
   totalAmount: number;
   saleItems: GetSaleItemResponseDto[];
 }

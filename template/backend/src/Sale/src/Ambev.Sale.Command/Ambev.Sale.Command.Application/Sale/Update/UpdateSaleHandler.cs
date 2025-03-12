@@ -40,7 +40,7 @@ namespace Ambev.Sale.Command.Application.Sale.Update
                 throw new Exception($"Sale with ID {command.Id} not found.");
 
             var cancelsalespec = new SaleCancelSpecification();
-            if (!cancelsalespec.IsSatisfiedBy(existingSale))            
+            if (cancelsalespec.IsSatisfiedBy(existingSale))            
                 throw new Exception($"Sale with ID {command.Id} already cancelled.");                           
 
             _mapper.Map(command, existingSale);            
