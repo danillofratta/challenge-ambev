@@ -8,6 +8,9 @@ using Ambev.Sale.Command.Domain.Specification;
 
 namespace Ambev.Sale.Command.Application.Sale.Delete
 {
+    /// <summary>
+    /// Handle delete sale
+    /// </summary>
     public class DeleteSaleHandler : IRequestHandler<DeleteSaleCommand, DeleteSaleResult>
     {
         private readonly ISaleCommandRepository _repositorycommand;
@@ -32,16 +35,17 @@ namespace Ambev.Sale.Command.Application.Sale.Delete
 
             var record = await _repositoryquery.GetByIdAsync(command.Id);
 
+            //if cancelled, cannot delete 
             var cancelsalespec = new SaleCancelSpecification();
             if (cancelsalespec.IsSatisfiedBy(record))
                 throw new Exception($"Sale with ID {command.Id} already cancelled.");
 
             record.Status = Domain.Enum.SaleStatus.Cancelled;
 
+            //delete salve
             var update = await _repositorycommand.DeleteAsync(record);
 
-            //todo
-            //using rebus
+            //call eventbus to delete sale in database read
             await _bus.PublishAsync(new SaleDeletedEvent
             {
                 Id = command.Id

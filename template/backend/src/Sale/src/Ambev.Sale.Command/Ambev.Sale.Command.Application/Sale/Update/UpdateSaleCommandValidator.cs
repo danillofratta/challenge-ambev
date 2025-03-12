@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ambev.Sale.Command.Domain.Validation;
-using Ambev.Sale.Core.Domain.Repository;
+﻿using Ambev.Sale.Core.Domain.Repository;
 using FluentValidation;
-using FluentValidation.Validators;
-
 
 namespace Ambev.Sale.Command.Application.Sale.Update
 {

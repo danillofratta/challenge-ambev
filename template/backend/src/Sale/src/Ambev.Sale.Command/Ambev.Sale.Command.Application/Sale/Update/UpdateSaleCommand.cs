@@ -1,6 +1,4 @@
-﻿using Ambev.Sale.Command.Application.Dto;
-using Ambev.Sale.Command.Domain.Enum;
-using MediatR;
+﻿using MediatR;
 
 namespace Ambev.Sale.Command.Application.Sale.Update
 {

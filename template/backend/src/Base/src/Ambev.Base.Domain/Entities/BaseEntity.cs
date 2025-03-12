@@ -8,7 +8,9 @@ namespace Ambev.Base.Domain.Entities;
 /// </summary>
 public class BaseEntity 
 {
-
+    /// <summary>
+    /// Unique identifier
+    /// </summary>
     public Guid Id { get; set; }
 
     /// <summary>
@@ -26,10 +28,19 @@ public class BaseEntity
     /// </summary>
     public DateTime? UpdatedAt { get; set; }
 
+    /// <summary>
+    /// Set data was created
+    /// </summary>
     public void SetCreated() => this.CreatedAt = DateTime.UtcNow;
 
+    /// <summary>
+    /// Set date update
+    /// </summary>
     public void SetUpdate() => this.UpdatedAt = DateTime.UtcNow;
 
+    /// <summary>
+    /// Set date inactiva register, logic delete
+    /// </summary>
     public void SetInactive() => this.InactivedAt = DateTime.UtcNow;
 
     public Task<IEnumerable<ValidationErrorDetail>> ValidateAsync()

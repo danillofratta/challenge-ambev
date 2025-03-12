@@ -2,8 +2,5 @@
 
 namespace Ambev.Sale.Query.Domain.Repository;
 
-public interface ISaleQueryRepository : IQueryRepositoryBase<Ambev.Sale.Query.Domain.Entities.Sale, Guid>
-{
-
-}
+public interface ISaleQueryRepository : IQueryRepositoryBase<Ambev.Sale.Query.Domain.Entities.Sale, Guid>{}
 

@@ -7,6 +7,9 @@ using Rebus.Threading;
 
 namespace Ambev.Sale.Query.Consumer.WebApi.Sales
 {
+    /// <summary>
+    /// Consumer to create sale in database read
+    /// </summary>
     public class SaleCreatedEventHandler : Rebus.Handlers.IHandleMessages<SaleCreatedEvent>
     {
         private readonly ISaleCommandConsumerRepository _repository;
@@ -17,8 +20,7 @@ namespace Ambev.Sale.Query.Consumer.WebApi.Sales
         }
 
         public async Task Handle(SaleCreatedEvent message)
-        {
-            // Criar a entidade baseada no evento recebido
+        {            
             var sale = new Ambev.Sale.Query.Domain.Entities.Sale
             {
                 Id = message.Id,
@@ -43,7 +45,6 @@ namespace Ambev.Sale.Query.Consumer.WebApi.Sales
                 }).ToList()
             };
 
-            // Salvar no banco de dados
             await _repository.SaveAsync(sale);
         }
     }

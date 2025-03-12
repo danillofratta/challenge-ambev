@@ -15,11 +15,6 @@ using Rebus.Retry.Simple;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(5000);
-//});
-
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -42,7 +37,7 @@ builder.Services.AddScoped<ISaleQueryRepository, SaleQueryRepository>();
 builder.Services.AddScoped<ISaleItemCommandRepository, SaleItemCommandRepository>();
 builder.Services.AddScoped<ISaleItemQueryRepository, SaleItemQueryRepository>();
 
-//TODO move to other project
+//config  rebus, todo remove from here
 builder.Services.AddRebus(configure => configure
                 .Logging(l => l.Console())
 #if DEBUG
@@ -81,6 +76,7 @@ app.UseCors((g) => g.AllowCredentials());
 
 app.MapControllers();
 
+//config subscribers rebus, todo remove from here
 using (var scope = app.Services.CreateScope())
 {
     var bus = scope.ServiceProvider.GetRequiredService<IBus>();

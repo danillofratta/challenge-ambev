@@ -7,6 +7,9 @@ using Rebus.Threading;
 
 namespace Ambev.Sale.Query.Consumer.WebApi.Sales
 {
+    /// <summary>
+    /// Consumer to update sale in database read
+    /// </summary>
     public class SaleUpdatedEventHandler : Rebus.Handlers.IHandleMessages<SaleUpdatedEvent>
     {
         private readonly ISaleCommandConsumerRepository _repositorycommnad;

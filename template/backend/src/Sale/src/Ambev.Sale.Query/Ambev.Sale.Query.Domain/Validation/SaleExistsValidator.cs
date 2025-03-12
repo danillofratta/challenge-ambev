@@ -1,9 +1,11 @@
 ﻿using Ambev.Sale.Query.Domain.Repository;
 using FluentValidation;
 
-
 namespace Ambev.Sale.Query.Domain.Validation;
 
+/// <summary>
+/// Validates if the sale exists
+/// </summary>
 public class SaleExistsValidator : AbstractValidator<Ambev.Sale.Query.Domain.Entities.Sale>
 {
     private readonly ISaleQueryRepository _repository;

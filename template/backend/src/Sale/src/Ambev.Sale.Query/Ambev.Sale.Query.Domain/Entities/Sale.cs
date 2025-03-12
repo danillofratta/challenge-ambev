@@ -3,6 +3,9 @@ using Ambev.Sale.Query.Domain.Enum;
 
 namespace Ambev.Sale.Query.Domain.Entities;
 
+/// <summary>
+/// Represents a sale
+/// </summary>
 public class Sale : BaseEntity
 {
     /// <summary>
@@ -25,14 +28,39 @@ public class Sale : BaseEntity
     /// </summary>
     public string BranchId { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Date the sale was cancelled
+    /// </summary>
     public DateTime? CancelledAt { get; set; }
 
     /// <summary>
     /// External Identities
     /// </summary>
     public string BranchName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Total of sale
+    /// </summary>
     public decimal TotalAmount { get; set; }
+
+    /// <summary>
+    /// Status of sale, cancelled or active
+    /// </summary>
     public SaleStatus Status { get; set; } = SaleStatus.NotCancelled;
-    public List<SaleItem> SaleItens { get; set; } = new()!;    
+
+    /// <summary>
+    /// Sale items/products
+    /// </summary>
+    public List<SaleItem> SaleItens { get; set; } = new()!;
+
+    /// <summary>
+    /// Set cancel sale
+    /// </summary>
+    public void Cancel()
+    {
+        Status = SaleStatus.Cancelled;
+        UpdatedAt = DateTime.UtcNow;
+        CancelledAt = DateTime.UtcNow;
+    }
 }
 

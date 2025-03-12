@@ -13,10 +13,6 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(6000);
-//});
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -35,6 +31,7 @@ builder.Services.AddScoped<ISaleQueryConsumerRepository, SaleQueryConsumerReposi
 builder.Services.AddScoped<ISaleItemCommandConsumerRepository, SaleItemCommandConsumerRepository>();
 builder.Services.AddScoped<ISaleItemQueryConsumerRepository, SaleItemQueryConsumerRepository>();
 
+//config rebus
 builder.Services.AddRebus(configure => configure
 #if DEBUG
     .Transport(t => t.UseRabbitMq("amqp://guest:guest@localhost", "SaleQueryEndPoint"))
@@ -48,8 +45,6 @@ builder.Services.AddRebus(configure => configure
     .AutoRegisterHandlersFromAssemblyOf<SaleUpdatedEventHandler>()
     .AutoRegisterHandlersFromAssemblyOf<SaleDeletedEventHandler>()
     .AutoRegisterHandlersFromAssemblyOf<SaleItemCanceledEventHandler>();
-
-//builder.Services.AutoRegisterHandlersFromAssembly(typeof(SaleCreatedEventHandler).Assembly);
 
 var app = builder.Build();
 
@@ -71,6 +66,7 @@ app.UseCors((g) => g.AllowCredentials());
 
 app.MapControllers();
 
+//set subscribes
 using (var scope = app.Services.CreateScope())
 {
     var bus = scope.ServiceProvider.GetRequiredService<IBus>();
@@ -80,7 +76,6 @@ using (var scope = app.Services.CreateScope())
     await bus.Subscribe<SaleCanceledEvent>();
     await bus.Subscribe<SaleItemCanceledEvent>();
 }
-
 
 app.Run();
 

@@ -4,6 +4,9 @@ using Ambev.Sale.Command.Domain.Enum;
 
 namespace Ambev.Sale.Command.Domain.Specification
 {
+    /// <summary>
+    /// Check sale is cancel
+    /// </summary>
     public class SaleCancelSpecification : BaseSpecification<Sale.Command.Domain.Entities.Sale>
     {
         public override bool IsSatisfiedBy(Entities.Sale entity)

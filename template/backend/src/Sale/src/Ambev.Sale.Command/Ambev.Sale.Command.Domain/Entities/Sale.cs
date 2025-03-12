@@ -29,6 +29,9 @@ public class Sale : BaseEntity
     /// </summary>
     public string BranchId { get; set; }
 
+    /// <summary>
+    /// Data was cancelled Sale
+    /// </summary>
     public DateTime? CancelledAt { get; set; }
 
     /// <summary>
@@ -39,6 +42,10 @@ public class Sale : BaseEntity
     public SaleStatus Status { get; set; } = SaleStatus.NotCancelled;
     public List<SaleItem> SaleItens { get; set; } = new()!;
 
+    /// <summary>
+    /// Call basic validations
+    /// </summary>
+    /// <returns></returns>
     public ValidationResultDetail Validate()
     {
         var validator = new SaleBasicValidator();
@@ -50,12 +57,18 @@ public class Sale : BaseEntity
         };
     }
 
+    /// <summary>
+    /// Set sale create
+    /// </summary>
     public void Create()
     {
         Status = SaleStatus.NotCancelled;        
         UpdatedAt = DateTime.UtcNow;
     }
 
+    /// <summary>
+    /// Set cancel sale
+    /// </summary>
     public void Cancel()
     {
         Status = SaleStatus.Cancelled;
@@ -63,6 +76,10 @@ public class Sale : BaseEntity
         CancelledAt = DateTime.UtcNow;
     }
 
+    /// <summary>
+    /// Check sale is cancelled
+    /// </summary>
+    /// <returns></returns>
     public bool IsCancelled()
     {
         if (Status == SaleStatus.Cancelled)

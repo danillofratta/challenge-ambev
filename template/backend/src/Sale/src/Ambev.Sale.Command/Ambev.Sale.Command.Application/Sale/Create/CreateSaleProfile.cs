@@ -2,7 +2,6 @@
 using Ambev.Sale.Contracts.Dto;
 using AutoMapper;
 
-
 namespace Ambev.Sale.Command.Application.Sale.Create
 {
     public class CreateSaleProfile : Profile

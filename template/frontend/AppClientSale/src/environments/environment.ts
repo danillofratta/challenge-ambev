@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
 
-  ApiUrl: 'http://localhost:5000/'  
+  ApiUrlSaleCommand: 'https://localhost:5000/',
+  ApiUrlSaleQuery: 'https://localhost:7000/'
 };

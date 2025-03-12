@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ambev.Sale.Command.WebApi;
 
 /// <summary>
-/// Sale EndPoint
+/// Sale Write/CommandEndPoint
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]

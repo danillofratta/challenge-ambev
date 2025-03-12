@@ -6,12 +6,14 @@ using Ambev.Sale.Core.Domain.Repository;
 using Ambev.Base.Infrastructure.Messaging;
 using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Contracts.Dto;
-using Ambev.Sale.Command.Domain.Enum;
 using Ambev.Sale.Query.Domain.Enum;
 using Rebus.Bus;
 
 namespace Ambev.Sale.Command.Application.Sale.Create
 {
+    /// <summary>
+    /// Handle create sale
+    /// </summary>
     public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleResult>
     {
         private readonly ISaleCommandRepository _repository;
@@ -38,28 +40,21 @@ namespace Ambev.Sale.Command.Application.Sale.Create
                 throw new ValidationException(validationResult.Errors);
 
             var record = _mapper.Map<Domain.Entities.Sale>(command);
-            //todo 
-            record.Status = Domain.Enum.SaleStatus.NotCancelled;
-            record.SaleItens.ForEach(x => x.Status = Domain.Enum.SaleItemStatus.NotCancelled);
 
+            record.Create();
+            record.SaleItens.ForEach(x => x.Create());
+
+            ///valid rule discount
             _discountService.ValidateSaleItems(record.SaleItens);
             if (_discountService.IsValid)
             {
-                //todo verify to put on domain
+                //sum total of sale item
                 record.TotalAmount = record.SaleItens.Sum(x => x.TotalPrice);
 
                 var created = await _repository.SaveAsync(record);
                 var result = _mapper.Map<CreateSaleResult>(created);
 
-                //publich event 
-                await _mediator.Publish(new CreateSaleResult
-                {
-                    Id = result.Id,
-                    Number = result.Number
-                });
-                await Task.FromResult("Sale Created");
-
-                //using rebus
+                //call eventbus to create sale in database read
                 await _bus.PublishAsync(new SaleCreatedEvent
                 {
                     Id = created.Id,

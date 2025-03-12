@@ -23,20 +23,6 @@ export class API {
     protected router: Router
   ) {
     this._http = http;
-    this._router = router;
-   
-    //this._baseurl = environment.ApiUrl;
-    //console.log(environment.production);    
+    this._router = router; 
   }
-
-  // public composeHeadersToken() {
-  //   //const token = localStorage.getItem('petshop.token');
-  //   const token = new SecurityService(this._cookieservice, this.router).GetToken();
-  //   const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
-
-  //   //const headers = new HttpHeaders()
-  //   //  .set('Authorization', "bearer " + token);      
-                      
-  //   return headers;
-  // }
 }

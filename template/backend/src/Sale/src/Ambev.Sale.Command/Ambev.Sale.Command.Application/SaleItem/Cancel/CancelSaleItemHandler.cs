@@ -12,6 +12,9 @@ using Ambev.Sale.Command.Domain.Specification;
 
 namespace Ambev.Sale.Command.Application.SaleItem.Cancel
 {
+    /// <summary>
+    /// Cancel item of sale
+    /// </summary>
     public class CancelSaleItemHandler : IRequestHandler<CancelSaleItemCommand, CancelSaleItemResult>
     {
         private readonly ISaleQueryRepository _repositorysalequery;
@@ -37,19 +40,22 @@ namespace Ambev.Sale.Command.Application.SaleItem.Cancel
 
         public async Task<CancelSaleItemResult> Handle(CancelSaleItemCommand command, CancellationToken cancellationToken)
         {
+            //validate 
             var validator = new CancelSaleItemCommandValidator(_repositorysaleitemquery);
             var validationResult = await validator.ValidateAsync(command, cancellationToken);            
             if (validationResult != null && !validationResult.IsValid)                
                 throw new ValidationException(validationResult.Errors);
             
+            //get item sale
             var record = await _repositorysaleitemquery.GetByIdAsync(command.id);
             
+            //check is cancel
             var cancelsalespec = new SaleItemCancelSpecification();
             if (cancelsalespec.IsSatisfiedBy(record))
                 throw new Exception($"Sale Item with ID {record.Id} already cancelled.");
-
+            //set cancel
             record.Status = Ambev.Sale.Command.Domain.Enum.SaleItemStatus.Cancelled;
-
+            //update item sale
             var update = await _repositorysaleitemcommand.UpdateAsync(record);
             
             //after cancel item, recalculate itens of sale and total of sale
@@ -58,14 +64,13 @@ namespace Ambev.Sale.Command.Application.SaleItem.Cancel
             //save sale with new total
             await _repositorysaleCommand.UpdateAsync(sale);
 
-            //update sale item
+            //call event update sale item
             await _bus.PublishAsync(new SaleItemCanceledEvent
             {
                 Id = update.Id
             });
 
-            //update sale becausa recalculate. 
-            //TODO: update only the field that was modified
+            //call event sale update because recalculate
             await _bus.PublishAsync(new SaleUpdatedEvent
             {
                 Id = sale.Id,

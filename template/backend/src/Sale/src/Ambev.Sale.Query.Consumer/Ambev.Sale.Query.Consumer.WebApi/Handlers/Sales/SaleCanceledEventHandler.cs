@@ -6,6 +6,9 @@ using Rebus.Handlers;
 
 namespace Ambev.Sale.Query.Consumer.WebApi.Sales
 {
+    /// <summary>
+    /// Consumer to cancel sale in database read
+    /// </summary>
     public class SaleCanceledEventHandler : Rebus.Handlers.IHandleMessages<SaleCanceledEvent>
     {
         private readonly ISaleCommandConsumerRepository _repositorycommnad;
@@ -23,7 +26,7 @@ namespace Ambev.Sale.Query.Consumer.WebApi.Sales
 
             if (sale != null)
             {
-                sale.Status = SaleStatus.Cancelled;
+                sale.Cancel();
 
                 await _repositorycommnad.UpdateAsync(sale);
             }

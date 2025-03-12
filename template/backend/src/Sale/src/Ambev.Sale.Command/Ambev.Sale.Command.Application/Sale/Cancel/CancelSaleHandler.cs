@@ -9,6 +9,9 @@ using Ambev.Sale.Command.Domain.Specification;
 
 namespace Ambev.Sale.Command.Application.Sale.Cancel
 {
+    /// <summary>
+    /// Handle cancel sale
+    /// </summary>
     public class CancelSaleHandler : IRequestHandler<CancelSaleCommand, CancelSaleResult>
     {
         private readonly ISaleCommandRepository _repositorycommand;
@@ -35,6 +38,7 @@ namespace Ambev.Sale.Command.Application.Sale.Cancel
 
             var record = await _repositoryquery.GetByIdAsync(command.id);
 
+            ///check is cancelled
             var cancelsalespec = new SaleCancelSpecification();
             if (cancelsalespec.IsSatisfiedBy(record))
                 throw new Exception($"Sale with ID {record.Id} already cancelled.");
@@ -42,14 +46,7 @@ namespace Ambev.Sale.Command.Application.Sale.Cancel
             record.Cancel();
             var update = await _repositorycommand.UpdateAsync(record);
 
-            //publich event 
-            await _mediator.Publish(new CreateSaleResult
-            {
-                Id = update.Id
-            });
-            await Task.FromResult("Sale Cancelled");
-
-            //using rebus
+            ////call eventbus to cancel sale in database read
             await _bus.PublishAsync(new SaleCanceledEvent
             {
                 Id = update.Id               

@@ -5,6 +5,9 @@ using Rebus.Handlers;
 
 namespace Ambev.Sale.Query.Consumer.WebApi.Sales
 {
+    /// <summary>
+    /// Consumer to delete sale in database read
+    /// </summary>
     public class SaleDeletedEventHandler : Rebus.Handlers.IHandleMessages<SaleDeletedEvent>
     {
         private readonly ISaleCommandConsumerRepository _repositorycommnad;

@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ambev.Sale.WebApi.Controllers.Sale;
 
 /// <summary>
-/// Sale EndPoint
-/// TODO: create versioning 
+/// Sale Query EndPoint
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
@@ -28,6 +27,12 @@ public class SalesQueryController : BaseController
         _repository = repository;
     }
 
+    /// <summary>
+    /// Return all sale wirh basic paginated
+    /// </summary>
+    /// <param name="pageNumber"></param>
+    /// <param name="pageSize"></param>
+    /// <returns></returns>
     [HttpGet("paginated")]
     public async Task<IActionResult> GetPaginatedProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {

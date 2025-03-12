@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ambev.Sale.Command.WebApiItem;
 
 /// <summary>
-/// Sale EndPoint
-/// TODO: create versioning 
+/// Sale Item Write/CommandEndPoint
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]

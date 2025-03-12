@@ -10,6 +10,9 @@ using Ambev.Sale.Command.Domain.Specification;
 
 namespace Ambev.Sale.Command.Application.Sale.Update
 {
+    /// <summary>
+    /// Update only basic data from sale
+    /// </summary>
     public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
     {
         private readonly ISaleCommandRepository _repositorycommnad;
@@ -35,28 +38,23 @@ namespace Ambev.Sale.Command.Application.Sale.Update
             if (validationResult != null && !validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
+            //check sale exist
             var existingSale = await _repositoryquery.GetByIdAsync(command.Id);
             if (existingSale == null)
                 throw new Exception($"Sale with ID {command.Id} not found.");
 
+            //check sale is cancelled
             var cancelsalespec = new SaleCancelSpecification();
             if (cancelsalespec.IsSatisfiedBy(existingSale))            
                 throw new Exception($"Sale with ID {command.Id} already cancelled.");                           
 
             _mapper.Map(command, existingSale);            
 
+            //update sale
             var update = await _repositorycommnad.UpdateAsync(existingSale);
             var result = _mapper.Map<UpdateSaleResult>(update);
-
-            //publich event 
-            await _mediator.Publish(new UpdateSaleResult
-            {
-                Id = result.Id,
-                Number = result.Number
-            });
-            
-            //todo
-            //using rebus
+                        
+            //call eventbus to update sale in database read
             await _bus.PublishAsync(new SaleUpdatedEvent
             {
                 Id = update.Id,

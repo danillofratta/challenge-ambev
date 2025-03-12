@@ -1,6 +1,10 @@
 ﻿namespace Ambev.Sale.Contracts.Events
 {
-    public class SaleDeletedEvent  {
+    /// <summary>
+    /// Event responsável por sincronizar bando de dado write e read
+    /// </summary>
+    public class SaleDeletedEvent  
+    {
         public Guid Id { get; set; }
     }
 }
