@@ -27,10 +27,10 @@ Project Structure:
 
 # Run Docker:
 
-Run RabbitMQ, abrir cli:  
+Run RabbitMQ, open cli:  
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management  
 
-Run PostgreSql, abrir cli:  
+Run PostgreSql, open cli:  
 docker run -d --name postgres-container -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=root -p 5432:5432 -v postgres_data:/var/lib/postgresql/data postgres
 
 # Run Migration to Inicialize database:
