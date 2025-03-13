@@ -9,6 +9,7 @@ using Ambev.Base.Infrastructure.Messaging;
 using Ambev.Base.Domain.Entities;
 using Ambev.Sale.Contracts.Events;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.Tests.Unit.Application;
 
@@ -20,6 +21,7 @@ public class CreateSaleHandlerTests
     private readonly IMediator _mediator;
     private readonly IMessageBus _bus;
     private readonly CreateSaleHandler _handler;
+    private readonly ILogger<CreateSaleHandler> _logger;
 
     public CreateSaleHandlerTests()
     {
@@ -28,8 +30,9 @@ public class CreateSaleHandlerTests
         _discountService = Substitute.For<SaleDiscountService>();
         _mediator = Substitute.For<IMediator>();
         _bus = Substitute.For<IMessageBus>();
+        _logger = Substitute.For<ILogger<CreateSaleHandler>>();
 
-        _handler = new CreateSaleHandler(_bus, _mediator, _discountService, _repository, _mapper);
+        _handler = new CreateSaleHandler(_bus, _mediator, _discountService, _repository, _mapper, _logger);
     }
 
     /// <summary>

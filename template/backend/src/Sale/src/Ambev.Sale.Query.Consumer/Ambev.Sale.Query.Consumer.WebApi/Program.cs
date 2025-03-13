@@ -10,9 +10,14 @@ using Ambev.Sale.Query.Consumer.WebApi.SalesItem;
 using Rebus.Bus;
 using Rebus.Config;
 using System.Text.Json.Serialization;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}")
+    .CreateLogger();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -40,11 +45,11 @@ builder.Services.AddRebus(configure => configure
 #endif
     .Options(o => o.SetBusName("SaleQueryEndPoint"))
     .Logging(l => l.Console()))
-    .AutoRegisterHandlersFromAssemblyOf<SaleCanceledEventHandler>()
-    .AutoRegisterHandlersFromAssemblyOf<SaleCreatedEventHandler>()
-    .AutoRegisterHandlersFromAssemblyOf<SaleUpdatedEventHandler>()
-    .AutoRegisterHandlersFromAssemblyOf<SaleDeletedEventHandler>()
-    .AutoRegisterHandlersFromAssemblyOf<SaleItemCanceledEventHandler>();
+    .AutoRegisterHandlersFromAssemblyOf<SaleCanceledConsumerEventHandler>()
+    .AutoRegisterHandlersFromAssemblyOf<SaleCreatedConsumerEventHandler>()
+    .AutoRegisterHandlersFromAssemblyOf<SaleUpdatedConsumerEventHandler>()
+    .AutoRegisterHandlersFromAssemblyOf<SaleDeletedConsumerEventHandler>()
+    .AutoRegisterHandlersFromAssemblyOf<SaleItemCanceledConsumerEventHandler>();
 
 var app = builder.Build();
 

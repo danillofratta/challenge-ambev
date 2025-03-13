@@ -8,6 +8,9 @@ using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Contracts.Dto;
 using Ambev.Sale.Query.Domain.Enum;
 using Rebus.Bus;
+using Serilog;
+using Microsoft.Extensions.Logging;
+using Rebus.Messages;
 
 namespace Ambev.Sale.Command.Application.Sale.Create
 {
@@ -21,14 +24,16 @@ namespace Ambev.Sale.Command.Application.Sale.Create
         private readonly SaleDiscountService _discountService;
         private readonly IMediator _mediator;
         private readonly IMessageBus _bus;
+        private readonly ILogger<CreateSaleHandler> _logger;
 
-        public CreateSaleHandler(IMessageBus bus, IMediator mediator, SaleDiscountService discountService, ISaleCommandRepository repository, IMapper mapper)
+        public CreateSaleHandler(IMessageBus bus, IMediator mediator, SaleDiscountService discountService, ISaleCommandRepository repository, IMapper mapper, ILogger<CreateSaleHandler> logger)
         {
             _repository = repository;
             _mapper = mapper;
             _discountService = discountService;
             _mediator = mediator;
             _bus = bus;
+            _logger = logger;
         }
 
         public async Task<CreateSaleResult> Handle(CreateSaleCommand command, CancellationToken cancellationToken)
@@ -54,6 +59,7 @@ namespace Ambev.Sale.Command.Application.Sale.Create
                 var created = await _repository.SaveAsync(record);
                 var result = _mapper.Map<CreateSaleResult>(created);
 
+                _logger.LogInformation("ServiceBus SaleCreatedEvent for SaleId {Id}", created.Id);
                 //call eventbus to create sale in database read
                 await _bus.PublishAsync(new SaleCreatedEvent
                 {

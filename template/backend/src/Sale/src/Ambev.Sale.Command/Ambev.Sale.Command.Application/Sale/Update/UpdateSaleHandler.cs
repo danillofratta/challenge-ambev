@@ -7,6 +7,8 @@ using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Contracts.Dto;
 using Ambev.Sale.Query.Domain.Enum;
 using Ambev.Sale.Command.Domain.Specification;
+using Ambev.Sale.Command.Application.Sale.Delete;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.Sale.Command.Application.Sale.Update
 {
@@ -20,14 +22,16 @@ namespace Ambev.Sale.Command.Application.Sale.Update
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IMessageBus _bus;
+        private readonly ILogger<UpdateSaleHandler> _logger;
 
-        public UpdateSaleHandler(ISaleQueryRepository repositoryquery, IMessageBus bus, IMediator mediator, ISaleCommandRepository repository, IMapper mapper)
+        public UpdateSaleHandler(ISaleQueryRepository repositoryquery, IMessageBus bus, IMediator mediator, ISaleCommandRepository repository, IMapper mapper, ILogger<UpdateSaleHandler> logger)
         {
             _repositoryquery = repositoryquery;
             _repositorycommnad = repository;
             _mapper = mapper;
             _mediator = mediator;
             _bus = bus;
+            _logger = logger;
         }
 
         public async Task<UpdateSaleResult> Handle(UpdateSaleCommand command, CancellationToken cancellationToken)
@@ -53,7 +57,8 @@ namespace Ambev.Sale.Command.Application.Sale.Update
             //update sale
             var update = await _repositorycommnad.UpdateAsync(existingSale);
             var result = _mapper.Map<UpdateSaleResult>(update);
-                        
+
+            _logger.LogInformation("ServiceBus SaleUpdatedEvent for SaleId {Id}", update.Id);
             //call eventbus to update sale in database read
             await _bus.PublishAsync(new SaleUpdatedEvent
             {

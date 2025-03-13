@@ -12,8 +12,14 @@ using Ambev.Sale.Core.Domain.Service;
 using Rebus.Bus;
 using Ambev.Sale.Contracts.Events.SaleItem;
 using Rebus.Retry.Simple;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information() 
+    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}")     
+    .CreateLogger();
 
 builder.Services.AddControllers();
 

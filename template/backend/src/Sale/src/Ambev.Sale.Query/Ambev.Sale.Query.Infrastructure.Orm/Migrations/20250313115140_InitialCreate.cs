@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
+namespace Ambev.Sale.Query.Infrastructure.Orm.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -17,13 +16,12 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Number = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CustomerId = table.Column<string>(type: "text", nullable: false),
-                    CustomerName = table.Column<string>(type: "text", nullable: false),
-                    BranchId = table.Column<string>(type: "text", nullable: false),
+                    Number = table.Column<int>(type: "integer", nullable: false),
+                    CustomerId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CustomerName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    BranchId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CancelledAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    BranchName = table.Column<string>(type: "text", nullable: false),
+                    BranchName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     TotalAmount = table.Column<decimal>(type: "numeric", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -41,8 +39,8 @@ namespace Ambev.Sale.Command.Infrastructure.Orm.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     SaleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductId = table.Column<string>(type: "text", nullable: false),
-                    ProductName = table.Column<string>(type: "text", nullable: false),
+                    ProductId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    ProductName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     Discount = table.Column<decimal>(type: "numeric", nullable: false),

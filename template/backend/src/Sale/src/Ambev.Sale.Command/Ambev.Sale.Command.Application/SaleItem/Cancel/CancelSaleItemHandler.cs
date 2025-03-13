@@ -9,6 +9,8 @@ using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Query.Domain.Enum;
 using Ambev.Sale.Contracts.Dto;
 using Ambev.Sale.Command.Domain.Specification;
+using Ambev.Sale.Command.Application.Sale.Update;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.Sale.Command.Application.SaleItem.Cancel
 {
@@ -25,8 +27,9 @@ namespace Ambev.Sale.Command.Application.SaleItem.Cancel
         private readonly IMediator _mediator;
         private readonly IMessageBus _bus;
         private readonly SaleRecalculationService _recalculationService;
+        private readonly ILogger<CancelSaleItemHandler> _logger;
 
-        public CancelSaleItemHandler(IMessageBus bus, ISaleItemCommandRepository saleItemCommandRepository, ISaleQueryRepository repositorysale, ISaleCommandRepository saleCommandRepository, SaleRecalculationService recalculationService, IMediator mediator, ISaleItemQueryRepository repositorysaleitemquery, IMapper mapper)
+        public CancelSaleItemHandler(IMessageBus bus, ISaleItemCommandRepository saleItemCommandRepository, ISaleQueryRepository repositorysale, ISaleCommandRepository saleCommandRepository, SaleRecalculationService recalculationService, IMediator mediator, ISaleItemQueryRepository repositorysaleitemquery, IMapper mapper, ILogger<CancelSaleItemHandler> logger)
         {
             _bus = bus;
             _repositorysaleitemquery = repositorysaleitemquery;
@@ -36,6 +39,7 @@ namespace Ambev.Sale.Command.Application.SaleItem.Cancel
             _repositorysalequery = repositorysale;
             _repositorysaleCommand = saleCommandRepository;
             _repositorysaleitemcommand = saleItemCommandRepository;
+            _mapper = mapper;
         }
 
         public async Task<CancelSaleItemResult> Handle(CancelSaleItemCommand command, CancellationToken cancellationToken)
@@ -64,12 +68,14 @@ namespace Ambev.Sale.Command.Application.SaleItem.Cancel
             //save sale with new total
             await _repositorysaleCommand.UpdateAsync(sale);
 
+            _logger.LogInformation("ServiceBus SaleItemCanceledEvent for SaleItemId {Id}", update.Id);
             //call event update sale item
             await _bus.PublishAsync(new SaleItemCanceledEvent
             {
                 Id = update.Id
             });
 
+            _logger.LogInformation("ServiceBus SaleUpdatedEvent for SaleId {Id}", sale.Id);
             //call event sale update because recalculate
             await _bus.PublishAsync(new SaleUpdatedEvent
             {

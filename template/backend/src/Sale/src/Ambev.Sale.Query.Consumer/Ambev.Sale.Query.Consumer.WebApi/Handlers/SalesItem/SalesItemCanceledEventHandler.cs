@@ -1,6 +1,7 @@
 ﻿
 using Ambev.Sale.Contracts.Events.SaleItem;
 using Ambev.Sale.Query.Consumer.Domain.Repository.SaleItem;
+using Ambev.Sale.Query.Consumer.WebApi.Sales;
 using Ambev.Sale.Query.Domain.Enum;
 using Rebus.Handlers;
 
@@ -9,27 +10,39 @@ namespace Ambev.Sale.Query.Consumer.WebApi.SalesItem
     /// <summary>
     /// Consumer to cancel item in database read
     /// </summary>
-    public class SaleItemCanceledEventHandler : Rebus.Handlers.IHandleMessages<SaleItemCanceledEvent>
+    public class SaleItemCanceledConsumerEventHandler : Rebus.Handlers.IHandleMessages<SaleItemCanceledEvent>
     {
         private readonly ISaleItemCommandConsumerRepository _repositorycommnad;
         private readonly ISaleItemQueryConsumerRepository _repositoryquery;
+        private readonly ILogger<SaleItemCanceledConsumerEventHandler> _logger;
 
-        public SaleItemCanceledEventHandler(ISaleItemCommandConsumerRepository repositorycommnad, ISaleItemQueryConsumerRepository repositoryquery)
+        public SaleItemCanceledConsumerEventHandler(ISaleItemCommandConsumerRepository repositorycommnad, ISaleItemQueryConsumerRepository repositoryquery, ILogger<SaleItemCanceledConsumerEventHandler> logger)
         {
             _repositorycommnad = repositorycommnad;
             _repositoryquery = repositoryquery;
+            _logger = logger;
         }
 
         public async Task Handle(SaleItemCanceledEvent message)
         {
-            var saleitem = await _repositoryquery.GetByIdAsync(message.Id);
-
-            if (saleitem != null)
+            _logger.LogInformation("Start Process SaleItemCanceledConsumerEventHandler for SaleId {Id}", message.Id);
+            try
             {
-                saleitem.Status = SaleItemStatus.Cancelled;                
+                var saleitem = await _repositoryquery.GetByIdAsync(message.Id);
 
-                await _repositorycommnad.UpdateAsync(saleitem);
+                if (saleitem != null)
+                {
+                    saleitem.Status = SaleItemStatus.Cancelled;
+
+                    await _repositorycommnad.UpdateAsync(saleitem);
+                }
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fail Process SaleItemCanceledConsumerEventHandler for SaleId {Id}", message.Id);
+                throw;
+            }
+            _logger.LogInformation("Success Process SaleItemCanceledConsumerEventHandler for SaleId {Id}", message.Id);
         }
     }
 }

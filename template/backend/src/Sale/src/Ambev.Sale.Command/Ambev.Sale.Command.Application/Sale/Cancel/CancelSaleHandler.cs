@@ -6,6 +6,7 @@ using Ambev.Base.Infrastructure.Messaging;
 using Ambev.Sale.Command.Application.Sale.Create;
 using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Command.Domain.Specification;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.Sale.Command.Application.Sale.Cancel
 {
@@ -19,14 +20,16 @@ namespace Ambev.Sale.Command.Application.Sale.Cancel
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IMessageBus _bus;
+        private readonly ILogger<CancelSaleHandler> _logger;
 
-        public CancelSaleHandler(IMediator mediator, ISaleCommandRepository repositorycommand, ISaleQueryRepository saleQueryRepository, IMapper mapper, IMessageBus bus)
+        public CancelSaleHandler(IMediator mediator, ISaleCommandRepository repositorycommand, ISaleQueryRepository saleQueryRepository, IMapper mapper, IMessageBus bus, ILogger<CancelSaleHandler> logger)
         {
             _bus = bus;
             _repositoryquery = saleQueryRepository;
             _repositorycommand = repositorycommand;
             _mapper = mapper;
             _mediator = mediator;
+            _logger = logger;
         }
 
         public async Task<CancelSaleResult> Handle(CancelSaleCommand command, CancellationToken cancellationToken)
@@ -46,6 +49,7 @@ namespace Ambev.Sale.Command.Application.Sale.Cancel
             record.Cancel();
             var update = await _repositorycommand.UpdateAsync(record);
 
+            _logger.LogInformation("ServiceBus SaleCanceledEvent for SaleId {Id}", update.Id);
             ////call eventbus to cancel sale in database read
             await _bus.PublishAsync(new SaleCanceledEvent
             {
