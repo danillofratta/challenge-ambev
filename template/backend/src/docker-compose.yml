@@ -2,7 +2,7 @@
 services:
   postgres:
     image: postgres:15
-    container_name: SaleDb
+    container_name: postgres-container
     restart: always
     environment:
       POSTGRES_USER: admin
@@ -36,6 +36,7 @@ services:
       - "5000:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5000
 
   ambev.sale.query.consumer.webapi:
     image: ${DOCKER_REGISTRY-}ambevsalequeryconsumerwebapi
@@ -49,6 +50,7 @@ services:
       - "6000:6000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:6000
 
   ambev.sale.query.webapi:
     image: ${DOCKER_REGISTRY-}ambevsalequerywebapi
@@ -62,6 +64,7 @@ services:
       - "7000:7000"     
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:7000
 
 volumes:
   postgres_data:

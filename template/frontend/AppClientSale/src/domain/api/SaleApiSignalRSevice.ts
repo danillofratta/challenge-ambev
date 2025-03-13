@@ -12,7 +12,7 @@ export class SaleApiSignalRSevice {
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
       //.withUrl('https://localhost:7091/NotificationSaleHubEvent', {
-      .withUrl(environment.ApiUrlProductSignal, {
+      .withUrl(environment.ApiUrlSaleCommand, {
         withCredentials: false//, // Ensure credentials are included
         //skipNegotiation: true,  // Importante para evitar erros de negociação
         //transport: signalR.HttpTransportType.WebSockets

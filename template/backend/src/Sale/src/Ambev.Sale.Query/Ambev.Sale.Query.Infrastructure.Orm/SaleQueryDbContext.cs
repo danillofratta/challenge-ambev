@@ -23,7 +23,7 @@ public class SaleQueryDbContext : DbContext
 #else
         //run docker 
         //todo craete appsettings
-        var conn = "Host=postgres_db;Port=5432;Username=admin;Password=root;Database=SaleReadDb;";
+        var conn = "Host=postgres-container;Port=5432;Username=admin;Password=root;Database=SaleReadDb;";
         optionsBuilder.UseNpgsql(conn);
 #endif
 
