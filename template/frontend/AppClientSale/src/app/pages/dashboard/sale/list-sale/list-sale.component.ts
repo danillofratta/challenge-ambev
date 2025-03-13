@@ -7,6 +7,8 @@ import { GetSaleResponseDto } from '../../../../../domain/dto/sale/get/GetSaleRe
 import { Router } from '@angular/router';
 import { CancelSaleResponseDto } from '../../../../../domain/dto/sale/cancel/CancelSaleResponseDto';
 import { DeleteSaleResponseDto } from '../../../../../domain/dto/sale/delete/DeleteSaleResponseDto';
+import { SaleApiSignalRSevice } from '../../../../../domain/api/SaleApiSignalRSevice';
+import { SaleDto } from '../../../../../domain/dto/SaleDto';
 
 @Component({
   selector: 'app-list-sale',
@@ -31,7 +33,7 @@ export class ListSaleComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: any = MatPaginator;
   
-  constructor(private Api: SaleApi, private router: Router) {
+  constructor(private Api: SaleApi, private router: Router, private signal: SaleApiSignalRSevice) {
   }
 
   ngAfterViewInit(): void {
@@ -40,6 +42,12 @@ export class ListSaleComponent implements OnInit, AfterViewInit {
 
   async ngOnInit() {
     this.busy = true;
+
+    //this.signal.onGetListUpdated((updatedDataList: GetSaleResponseDto[]) => {
+    //  this.dataSource.data = updatedDataList;
+    //  console.log('SignalR updated data:', updatedDataList);
+    //  //this.cdr.detectChanges();
+    //});
 
     await this.LoadList();
   }
@@ -60,8 +68,9 @@ export class ListSaleComponent implements OnInit, AfterViewInit {
     
     this.ClearErrorList();
 
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
     (await this.Api.GetListAll(this.pageIndex + 1, this.pageSize)).pipe(
-      delay(2000),
       catchError((error) => {        
           this._ListError.push(error.message || 'Erro ao carregar dados');
           return of(null); // Retorna null em caso de erro

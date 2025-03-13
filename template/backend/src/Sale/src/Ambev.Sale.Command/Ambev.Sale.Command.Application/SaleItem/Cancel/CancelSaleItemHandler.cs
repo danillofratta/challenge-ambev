@@ -3,13 +3,11 @@ using FluentValidation;
 using AutoMapper;
 using Ambev.Sale.Core.Domain.Repository;
 using Ambev.Base.Infrastructure.Messaging;
-using Ambev.Sale.Command.Application.Sale.Create;
 using Ambev.Sale.Contracts.Events.SaleItem;
 using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Query.Domain.Enum;
 using Ambev.Sale.Contracts.Dto;
 using Ambev.Sale.Command.Domain.Specification;
-using Ambev.Sale.Command.Application.Sale.Update;
 using Microsoft.Extensions.Logging;
 
 namespace Ambev.Sale.Command.Application.SaleItem.Cancel
@@ -40,6 +38,7 @@ namespace Ambev.Sale.Command.Application.SaleItem.Cancel
             _repositorysaleCommand = saleCommandRepository;
             _repositorysaleitemcommand = saleItemCommandRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<CancelSaleItemResult> Handle(CancelSaleItemCommand command, CancellationToken cancellationToken)

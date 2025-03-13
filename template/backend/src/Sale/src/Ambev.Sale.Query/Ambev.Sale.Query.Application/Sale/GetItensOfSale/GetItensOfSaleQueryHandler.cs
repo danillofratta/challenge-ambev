@@ -2,7 +2,6 @@
 using FluentValidation;
 using AutoMapper;
 using Ambev.Sale.Query.Domain.Repository;
-using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.Sale.Query.Application.Sale.GetItensOfSale;
 

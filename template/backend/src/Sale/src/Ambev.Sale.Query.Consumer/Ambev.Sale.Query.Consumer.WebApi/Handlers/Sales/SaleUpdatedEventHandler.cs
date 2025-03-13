@@ -40,7 +40,7 @@ namespace Ambev.Sale.Query.Consumer.WebApi.Sales
                     sale.TotalAmount = message.TotalAmount;
                     sale.Status = (SaleStatus)message.Status;
 
-                    await _repositorycommnad.UpdateAsync(sale);
+                    await _repositorycommnad.UpdateAsync(sale);                    
                 }
             }
             catch (Exception ex)

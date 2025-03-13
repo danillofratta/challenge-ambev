@@ -1,7 +1,6 @@
 ﻿
 using Ambev.Sale.Contracts.Events;
 using Ambev.Sale.Query.Consumer.Domain.Repository.Sale;
-using Ambev.Sale.Query.Domain.Enum;
 using Rebus.Handlers;
 
 namespace Ambev.Sale.Query.Consumer.WebApi.Sales

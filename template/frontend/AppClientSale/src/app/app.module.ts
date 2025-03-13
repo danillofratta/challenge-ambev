@@ -31,6 +31,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ShowErrorListComponent } from './components/show-error-list/show-error-list.component';
 import { SaleItemApi } from '../domain/api/SaleItemApi';
+import { SaleApiSignalRSevice } from '../domain/api/SaleApiSignalRSevice';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { SaleItemApi } from '../domain/api/SaleItemApi';
     MatOptionModule,
     MatAutocompleteModule    
   ],
-  providers: [SaleApi, SaleItemApi, provideAnimationsAsync(), ProductApi],
+  providers: [SaleApi, SaleItemApi, provideAnimationsAsync(), ProductApi, SaleApiSignalRSevice],
   bootstrap: [AppComponent]
 })
 export class AppModule {

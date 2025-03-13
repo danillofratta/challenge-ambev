@@ -11,6 +11,8 @@ using Rebus.Bus;
 using Rebus.Config;
 using System.Text.Json.Serialization;
 using Serilog;
+using Ambev.Sale.Query.Domain.Repository;
+using Ambev.Sale.Query.Infrastructure.Orm.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

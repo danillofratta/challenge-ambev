@@ -111,8 +111,9 @@ export class ModifySaleComponent implements OnInit {
   async loadSaleItems(saleId: string) {
     this.busy = true;
 
-    (await this.apiSale.GetItensOfSale(saleId)).pipe(
-      delay(2000),
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    (await this.apiSale.GetItensOfSale(saleId)).pipe(      
       catchError((error) => {
         this._ListError.push(error.message || 'Error');
         return of(null); // Retorna null em caso de erro
@@ -165,8 +166,6 @@ export class ModifySaleComponent implements OnInit {
       const record = this.form.value as ModifySaleResponseDto;
 
       try {
-
-
         await (await this.apiSale.Update(record)).subscribe({
           next: (response) => {
             if (response.success) {

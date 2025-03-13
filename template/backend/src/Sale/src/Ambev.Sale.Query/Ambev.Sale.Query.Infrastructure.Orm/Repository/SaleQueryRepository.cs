@@ -7,16 +7,16 @@ namespace Ambev.Sale.Query.Infrastructure.Orm.Repository;
 
 public class SaleQueryRepository : QueryRepositoryBase<Ambev.Sale.Query.Domain.Entities.Sale , Guid>, ISaleQueryRepository
 {
-    private readonly SaleQueryDbContext _SaleCommandDbContext;
+    private readonly SaleQueryDbContext _SaleQueryDbContext;
 
     public SaleQueryRepository(SaleQueryDbContext defaultDbContext) : base(defaultDbContext)
     {
-        _SaleCommandDbContext = defaultDbContext;    
+        _SaleQueryDbContext = defaultDbContext;    
     }
 
-    public virtual async Task<Ambev.Sale.Query.Domain.Entities.Sale> GetByIdAsync(Guid id)
+    public async Task<Ambev.Sale.Query.Domain.Entities.Sale> GetByIdAsync(Guid id)
     {
-        return await _SaleCommandDbContext.Sales
+        return await _SaleQueryDbContext.Sales
             .Include(entity => entity.SaleItens) 
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id ==  id);

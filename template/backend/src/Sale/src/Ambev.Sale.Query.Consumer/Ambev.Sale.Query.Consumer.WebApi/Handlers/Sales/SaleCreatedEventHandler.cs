@@ -14,7 +14,6 @@ namespace Ambev.Sale.Query.Consumer.WebApi.Sales
     {
         private readonly ISaleCommandConsumerRepository _repository;
         private readonly ILogger<SaleCreatedConsumerEventHandler> _logger;
-
         public SaleCreatedConsumerEventHandler(ISaleCommandConsumerRepository repository, ILogger<SaleCreatedConsumerEventHandler> logger)
         {
             _repository = repository;
