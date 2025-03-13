@@ -52,7 +52,7 @@ ReadDb
 # Run Backend:
 * Step 1: go to template\backend\src
 * Step 2: open soluction
-* Step 3: run soluction (profile start PROJECTS)  
+* Step 3: run soluction (put profile start PROJECTS)  
 (Some cases need to restore. In this case open CLI in folder backend/src and run: dotnet restore Ambev.Backend.sln)
 
 # Run FrontEnd:
