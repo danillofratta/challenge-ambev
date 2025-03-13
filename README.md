@@ -1,18 +1,27 @@
 ## Instructions
 
-The project was created following instructions.
-
-I followed the following premises for development:
+The project was created following the guidelines:
 - based on microservices
-- based on a read and write database
-- based on messaging with rebus between microservices.
+- based on a read-write database
+- based on messages with rebus between microservices.
 
 For development:
-- added the template and performed refactoring to add future projects based on microservices/context
-- created a project structure for developing a specific context, thinking about microservices
-- created a project structure for testing a specific context, thinking about microservices
-- created a project for writing and another query following CQRS premises to also test messaging that was built in a basic way using a rebus ROM that is responsible for updating the records recorded in the writing database to the reading database
-- created a base project to share the basic architecture
+- added the template and performed refactoring to add context boundary
+- created a project structure for context boundary development, thinking about microservices
+- created a project structure for context boundary development, thinking about microservices
+- created a base structure to share the basic architecture
+
+# Project Structure
+
+Project Structure:
+
+- Base: basic architecture to avoid code duplication
+- User: user context (template)
+- Sale: sales context
+    * Sale Command: responsible only for writing to the write database
+    * Sale Query: responsible only for reading from the read database
+    * Sale Query Consumer: responsible only for updating the read database, consuming changes made by the command
+    * Sale Contracts: Shared interfaces.
 
 ## Instructions for running
 
@@ -43,7 +52,8 @@ ReadDb
 # Run Backend:
 * Step 1: go to template\backend\src
 * Step 2: open soluction
-* Step 3: run soluction (profile star PROJECTS)
+* Step 3: run soluction (profile start PROJECTS)
+Some cases need to restore. In this case open CLI backendzsrc and ru: dotnet restore Ambev.Backend.sln
 
 # Run FrontEnd:
 * Step 1: go to template\frontend\src\AppClientSale
